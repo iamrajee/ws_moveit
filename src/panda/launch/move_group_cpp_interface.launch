@@ -1,0 +1,3 @@
+<launch>
+  <node name="move_group_cpp_interface" pkg="panda" type="move_group_cpp_interface" respawn="false" output="screen"> </node>
+</launch>

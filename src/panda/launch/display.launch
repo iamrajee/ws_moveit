@@ -1,0 +1,31 @@
+<launch>
+
+    <arg name="robot_description" default="robot_description"/>
+    <!-- <arg name="use_gui" default="False"/> -->
+
+    <!-- <param name="robot_description" textfile="/home/viki/catkin_ws/install/share/myrobot_description/urdf/myrobot.urdf" /> -->
+    
+    <!-- Load universal robot description format (URDF) -->
+    <!-- <param name="$(arg robot_description)" command="$(find xacro)/xacro '$(find panda)/robots/panda_arm_hand.urdf.xacro'"/> -->
+    <!-- <param name="$(arg robot_description)" command="$(find xacro)/xacro '$(find panda)/robots/two_panda_arm.urdf.xacro'"/> -->
+    <param name="$(arg robot_description)" command="$(find xacro)/xacro '$(find panda)/robots/two_panda_arm_hand.urdf.xacro'"/>
+
+    <!-- ?? The semantic description that corresponds to the URDF -->
+    <!-- <param name="$(arg robot_description)_semantic" command="$(find xacro)/xacro '$(find panda_moveit_config)/config/panda_arm_hand.srdf.xacro'" /> -->
+    
+    <!-- ?? Load default settings for kinematics -->
+    <!-- <group ns="$(arg robot_description)_kinematics">   
+      <rosparam command="load" file="$(find panda_moveit_config)/config/kinematics.yaml"/>
+    </group> -->
+    <!-- <param name="use_gui" value="True"/> -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+        <!-- <param name="use_gui" value="False"/> -->
+        <param name="use_gui" value="True"/>
+    </node>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+    
+    <!-- rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d /home/rajendra/ws_moveit/src/panda/rviz/two_panda.rviz" required="true" />
+
+</launch>
