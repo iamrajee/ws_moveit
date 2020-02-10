@@ -1,0 +1,26 @@
+<package format="2">
+	<name>moveit_task_constructor_visualization</name>
+	<version>0.0.0</version>
+	<description>Visualization tools for MoveIt Task Pipeline</description>
+
+	<license>BSD</license>
+	<maintainer email="rhaschke@techfak.uni-bielefeld.de">Robert Haschke</maintainer>
+	<maintainer email="me@v4hn.de">Michael Goerner</maintainer>
+
+	<buildtool_depend>catkin</buildtool_depend>
+
+	<depend>moveit_core</depend>
+	<depend>moveit_task_constructor_msgs</depend>
+	<depend>moveit_task_constructor_core</depend>
+	<depend>moveit_ros_visualization</depend>
+	<depend>roscpp</depend>
+	<depend>rviz</depend>
+
+	<test_depend>rosunit</test_depend>
+	<test_depend>rostest</test_depend>
+	<test_depend>moveit_resources</test_depend>
+
+	<export>
+		<rviz plugin="${prefix}/motion_planning_tasks_rviz_plugin_description.xml"/>
+	</export>
+</package>

@@ -1,0 +1,25 @@
+<package format="2">
+	<name>moveit_task_constructor_capabilities</name>
+	<version>0.0.0</version>
+	<description>
+	MoveGroupCapabilites to interact with MoveIt
+	</description>
+
+	<maintainer email="me@v4hn.de">Michael v4hn Goerner</maintainer>
+	<maintainer email="rhaschke@techfak.uni-bielefeld.de">Robert Haschke</maintainer>
+
+	<license>BSD</license>
+
+	<buildtool_depend>catkin</buildtool_depend>
+
+	<depend>moveit_core</depend>
+	<depend>moveit_ros_move_group</depend>
+	<depend>actionlib</depend>
+	<depend>pluginlib</depend>
+	<depend>std_msgs</depend>
+	<depend>moveit_task_constructor_msgs</depend>
+
+	<export>
+		<moveit_ros_move_group plugin="${prefix}/capabilities_plugin_description.xml"/>
+	</export>
+</package>

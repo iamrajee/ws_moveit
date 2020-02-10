@@ -1,0 +1,12 @@
+# dynamically changing information for a stage
+
+# unique id within task
+uint32 id
+
+# successful solution IDs of this stage
+uint32[] solved
+
+# (optional) failed solution IDs of this stage
+uint32[] failed
+# number of failed solutions (if failed is empty)
+uint32   num_failed

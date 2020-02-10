@@ -1,0 +1,15 @@
+<package format="2">
+	<name>rviz_marker_tools</name>
+	<version>0.0.0</version>
+	<description>Tools for marker creation / handling</description>
+
+	<license>BSD</license>
+	<maintainer email="rhaschke@techfak.uni-bielefeld.de">Robert Haschke</maintainer>
+
+	<buildtool_depend>catkin</buildtool_depend>
+
+	<depend>visualization_msgs</depend>
+	<depend>geometry_msgs</depend>
+	<depend>roscpp</depend>
+	<depend>rviz</depend>
+</package>

@@ -1,0 +1,254 @@
+/*********************************************************************
+ * Software License Agreement (BSD License)
+ *
+ *  Copyright (c) 2017, Bielefeld University
+ *  All rights reserved.
+ *
+ *  Redistribution and use in source and binary forms, with or without
+ *  modification, are permitted provided that the following conditions
+ *  are met:
+ *
+ *   * Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *   * Redistributions in binary form must reproduce the above
+ *     copyright notice, this list of conditions and the following
+ *     disclaimer in the documentation and/or other materials provided
+ *     with the distribution.
+ *   * Neither the name of Bielefeld University nor the names of its
+ *     contributors may be used to endorse or promote products derived
+ *     from this software without specific prior written permission.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ *  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ *  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ *  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ *  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *  POSSIBILITY OF SUCH DAMAGE.
+ *********************************************************************/
+
+/* Authors: Michael Goerner, Robert Haschke
+   Desc:    Connect arbitrary states by motion planning
+*/
+
+#include <moveit/task_constructor/stages/connect.h>
+#include <moveit/task_constructor/merge.h>
+#include <moveit/planning_scene/planning_scene.h>
+
+namespace moveit {
+namespace task_constructor {
+namespace stages {
+
+Connect::Connect(const std::string& name, const GroupPlannerVector& planners) : Connecting(name), planner_(planners) {
+	setTimeout(1.0);
+	auto& p = properties();
+	p.declare<MergeMode>("merge_mode", WAYPOINTS, "merge mode");
+	p.declare<moveit_msgs::Constraints>("path_constraints", moveit_msgs::Constraints(),
+	                                    "constraints to maintain during trajectory");
+}
+
+void Connect::reset() {
+	Connecting::reset();
+	merged_jmg_.reset();
+	subsolutions_.clear();
+	states_.clear();
+}
+
+void Connect::init(const core::RobotModelConstPtr& robot_model) {
+	Connecting::init(robot_model);
+
+	InitStageException errors;
+	if (planner_.empty())
+		errors.push_back(*this, "empty set of groups");
+
+	size_t num_joints = 0;
+	std::vector<const moveit::core::JointModelGroup*> groups;
+	for (const GroupPlannerVector::value_type& pair : planner_) {
+		if (!robot_model->hasJointModelGroup(pair.first))
+			errors.push_back(*this, "invalid group: " + pair.first);
+		else if (!pair.second)
+			errors.push_back(*this, "invalid planner for group: " + pair.first);
+		else {
+			pair.second->init(robot_model);
+
+			auto jmg = robot_model->getJointModelGroup(pair.first);
+			groups.push_back(jmg);
+			num_joints += jmg->getJointModels().size();
+		}
+	}
+
+	if (!errors && groups.size() >= 2) {  // enable merging?
+		merged_jmg_.reset(task_constructor::merge(groups));
+		if (merged_jmg_->getJointModels().size() != num_joints) {
+			// overlapping joint groups: analyse in more detail
+			std::vector<const moveit::core::JointModel*> duplicates;
+			std::string names;
+			if (findDuplicates(groups, merged_jmg_->getJointModels(), duplicates, names)) {
+				ROS_INFO_STREAM_NAMED("Connect", this->name() << ": overlapping joint groups: " << names
+				                                              << ". Disabling merging.");
+				merged_jmg_.reset();  // fallback to serial connect
+			}
+		}
+	}
+
+	if (errors)
+		throw errors;
+}
+
+bool Connect::compatible(const InterfaceState& from_state, const InterfaceState& to_state) const {
+	if (!Connecting::compatible(from_state, to_state))
+		return false;
+
+	const moveit::core::RobotState& from = from_state.scene()->getCurrentState();
+	const moveit::core::RobotState& to = to_state.scene()->getCurrentState();
+
+	// compose set of joint names we plan for
+	std::set<std::string> planned_joint_names;
+	for (const GroupPlannerVector::value_type& pair : planner_) {
+		const moveit::core::JointModelGroup* jmg = from.getJointModelGroup(pair.first);
+		const auto& names = jmg->getJointModelNames();
+		planned_joint_names.insert(names.begin(), names.end());
+	}
+	// all active joints that we don't plan for should match
+	for (const moveit::core::JointModel* jm : from.getRobotModel()->getJointModels()) {
+		if (planned_joint_names.count(jm->getName()))
+			continue;  // ignore joints we plan for
+
+		const unsigned int num = jm->getVariableCount();
+		Eigen::Map<const Eigen::VectorXd> positions_from(from.getJointPositions(jm), num);
+		Eigen::Map<const Eigen::VectorXd> positions_to(to.getJointPositions(jm), num);
+		if (!(positions_from - positions_to).isZero(1e-4)) {
+			ROS_INFO_STREAM_NAMED("Connect", "Deviation in joint " << jm->getName() << ": [" << positions_from.transpose()
+			                                                       << "] != [" << positions_to.transpose() << "]");
+			return false;
+		}
+	}
+	return true;
+}
+
+void Connect::compute(const InterfaceState& from, const InterfaceState& to) {
+	const auto& props = properties();
+	double timeout = this->timeout();
+	MergeMode mode = props.get<MergeMode>("merge_mode");
+	const auto& path_constraints = props.get<moveit_msgs::Constraints>("path_constraints");
+
+	const moveit::core::RobotState& final_goal_state = to.scene()->getCurrentState();
+	std::vector<robot_trajectory::RobotTrajectoryConstPtr> sub_trajectories;
+
+	std::vector<planning_scene::PlanningSceneConstPtr> intermediate_scenes;
+	planning_scene::PlanningSceneConstPtr start = from.scene();
+	intermediate_scenes.push_back(start);
+
+	bool success = false;
+	std::vector<double> positions;
+	for (const GroupPlannerVector::value_type& pair : planner_) {
+		// set intermediate goal state
+		planning_scene::PlanningScenePtr end = start->diff();
+		const moveit::core::JointModelGroup* jmg = final_goal_state.getJointModelGroup(pair.first);
+		final_goal_state.copyJointGroupPositions(jmg, positions);
+		robot_state::RobotState& goal_state = end->getCurrentStateNonConst();
+		goal_state.setJointGroupPositions(jmg, positions);
+		goal_state.update();
+		intermediate_scenes.push_back(end);
+
+		robot_trajectory::RobotTrajectoryPtr trajectory;
+		success = pair.second->plan(start, end, jmg, timeout, trajectory, path_constraints);
+		sub_trajectories.push_back(trajectory);  // include failed trajectory
+
+		if (!success)
+			break;
+
+		// continue from reached state
+		start = end;
+	}
+
+	SolutionBasePtr solution;
+	if (success && mode != SEQUENTIAL)  // try to merge
+		solution = merge(sub_trajectories, intermediate_scenes, from.scene()->getCurrentState());
+	if (!solution)  // success == false or merging failed: store sequentially
+		solution = makeSequential(sub_trajectories, intermediate_scenes, from, to);
+	if (!success)  // error during sequential planning
+		solution->markAsFailure();
+	connect(from, to, solution);
+}
+
+SolutionSequencePtr
+Connect::makeSequential(const std::vector<robot_trajectory::RobotTrajectoryConstPtr>& sub_trajectories,
+                        const std::vector<planning_scene::PlanningSceneConstPtr>& intermediate_scenes,
+                        const InterfaceState& from, const InterfaceState& to) {
+	assert(sub_trajectories.size() + 1 == intermediate_scenes.size());
+	auto scene_it = intermediate_scenes.begin();
+	planning_scene::PlanningSceneConstPtr start_ps = *scene_it;
+	const InterfaceState* state = &from;
+
+	// calculate cost
+	double cost = 0;
+	for (const auto& trajectory : sub_trajectories) {
+		if (!trajectory)
+			continue;
+		for (const double& distance : trajectory->getWayPointDurations())
+			cost += distance;
+	}
+
+	SolutionSequence::container_type sub_solutions;
+	for (const auto& sub : sub_trajectories) {
+		planning_scene::PlanningSceneConstPtr end_ps = *++scene_it;
+
+		auto inserted = subsolutions_.insert(subsolutions_.end(), SubTrajectory(sub));
+		inserted->setCreator(pimpl_);
+		// push back solution pointer
+		sub_solutions.push_back(&*inserted);
+
+		// provide meaningful start/end states
+		subsolutions_.back().setStartState(*state);
+
+		// for all but last scene, create a new state
+		if (sub_solutions.size() < sub_trajectories.size()) {
+			state = &*states_.insert(states_.end(), InterfaceState(end_ps));
+			subsolutions_.back().setEndState(*state);
+		} else
+			subsolutions_.back().setEndState(to);
+
+		start_ps = end_ps;
+	}
+
+	return std::make_shared<SolutionSequence>(std::move(sub_solutions), cost);
+}
+
+SubTrajectoryPtr Connect::merge(const std::vector<robot_trajectory::RobotTrajectoryConstPtr>& sub_trajectories,
+                                const std::vector<planning_scene::PlanningSceneConstPtr>& intermediate_scenes,
+                                const moveit::core::RobotState& state) {
+	// calculate cost
+	double cost = 0;
+	for (const auto& trajectory : sub_trajectories) {
+		if (!trajectory)
+			continue;
+		for (const double& distance : trajectory->getWayPointDurations())
+			cost += distance;
+	}
+
+	// no need to merge if there is only a single sub trajectory
+	if (sub_trajectories.size() == 1)
+		return std::make_shared<SubTrajectory>(sub_trajectories[0], cost);
+
+	auto jmg = merged_jmg_.get();
+	assert(jmg);
+	robot_trajectory::RobotTrajectoryPtr trajectory = task_constructor::merge(sub_trajectories, state, jmg);
+	if (!trajectory)
+		return SubTrajectoryPtr();
+
+	// check merged trajectory for collisions
+	if (!intermediate_scenes.front()->isPathValid(*trajectory,
+	                                              properties().get<moveit_msgs::Constraints>("path_constraints")))
+		return SubTrajectoryPtr();
+
+	return std::make_shared<SubTrajectory>(trajectory, cost);
+}
+}
+}
+}
