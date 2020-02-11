@@ -47,10 +47,10 @@
   </include> -->
 
   <!-- =================== Rviz ================= -->
-  <node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="false" args="-d $(find moveit_task_constructor_demo)/config/mtc5.rviz">
+  <node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="false" args="-d $(find moveit_task_constructor_demo)/config/mtc6.rviz">
     <rosparam command="load" file="$(find panda_moveit_config)/config/kinematics.yaml"/>
   </node>
-  <!-- <node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="false" args="-d $(find moveit_task_constructor_demo)/config/mtc5.rviz">
+  <!-- <node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="false" args="-d $(find moveit_task_constructor_demo)/config/mtc6.rviz">
     <rosparam command="load" file="$(find two_panda_moveit_config)/config/kinematics.yaml"/>
   </node> -->
   ?>
@@ -82,7 +82,7 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="false" args="-d $(find moveit_task_constructor_demo)/config/mtc5.rviz">
+  <node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="false" args="-d $(find moveit_task_constructor_demo)/config/mtc6.rviz">
     <rosparam command="load" file="$(find two_panda_moveit_config)/config/kinematics.yaml"/>
   </node>
   <!-- ?> -->

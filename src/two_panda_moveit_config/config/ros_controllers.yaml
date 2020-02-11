@@ -68,25 +68,6 @@ controller_list:
     type: FollowJointTrajectory
     joints:
       []
-  - name: both_panda_arm_controller
-    action_ns: follow_joint_trajectory
-    default: True
-    type: FollowJointTrajectory
-    joints:
-      - panda1_joint1
-      - panda1_joint2
-      - panda1_joint3
-      - panda1_joint4
-      - panda1_joint5
-      - panda1_joint6
-      - panda1_joint7
-      - panda2_joint1
-      - panda2_joint2
-      - panda2_joint3
-      - panda2_joint4
-      - panda2_joint5
-      - panda2_joint6
-      - panda2_joint7
 arm_position_controller:
   type: position_controllers/JointPositionController
   joints:
