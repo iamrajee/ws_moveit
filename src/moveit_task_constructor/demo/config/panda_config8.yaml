@@ -1,5 +1,5 @@
 # Total planning attempts
-planning_attempts: 12
+planning_attempts: 1
 
 arm_group_name: "panda1_arm" # Planning group and link names
 eef_name: "hand1_eef"
@@ -60,8 +60,9 @@ table2_reference_frame: "world"
 grasp_frame_transform: [0, 0, 0.1, 1.571, 0.785, 1.571]
 
 # Place pose [x,y,z,r,p,y]
-place_pose: [0.5, 0, 0, 0, 0, 0]
-place_pose2: [0.5, 0, 0.271, 1.571, 0, 0]
+place_pose: [0.5, -1, 0, 0, 0, 0]
+# place_pose2: [0.5, 0, 0.271, 1.571, 0, 0]
+place_pose2: [0.5, 1, 0.125, 0, 0, 0]
 place_surface_offset: 0.0001 # place offset from table
 
 # Valid distance range when approaching an object for picking

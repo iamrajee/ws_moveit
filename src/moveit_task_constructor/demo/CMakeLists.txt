@@ -53,6 +53,10 @@ add_library(${PROJECT_NAME}_lib7 src/pick_place_task7.cpp)
 set_target_properties(${PROJECT_NAME}_lib7 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place7)
 add_dependencies(${PROJECT_NAME}_lib7 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+add_library(${PROJECT_NAME}_lib8 src/pick_place_task8.cpp)
+set_target_properties(${PROJECT_NAME}_lib8 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place8)
+add_dependencies(${PROJECT_NAME}_lib8 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 add_executable(${PROJECT_NAME}_demo src/moveit_task_constructor_demo.cpp)
 target_link_libraries(${PROJECT_NAME}_demo ${PROJECT_NAME}_lib ${catkin_LIBRARIES})
 set_target_properties(${PROJECT_NAME}_demo PROPERTIES OUTPUT_NAME moveit_task_constructor_demo)
@@ -89,6 +93,11 @@ target_link_libraries(${PROJECT_NAME}_demo7 ${PROJECT_NAME}_lib7 ${catkin_LIBRAR
 set_target_properties(${PROJECT_NAME}_demo7 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo7)
 add_dependencies(${PROJECT_NAME}_demo7 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+add_executable(${PROJECT_NAME}_demo8 src/moveit_task_constructor_demo8.cpp)
+target_link_libraries(${PROJECT_NAME}_demo8 ${PROJECT_NAME}_lib8 ${catkin_LIBRARIES})              # <= important lib8 !!!
+set_target_properties(${PROJECT_NAME}_demo8 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo8)
+add_dependencies(${PROJECT_NAME}_demo8 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 install(TARGETS ${PROJECT_NAME}_lib ${PROJECT_NAME}_demo
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
@@ -120,6 +129,11 @@ install(TARGETS ${PROJECT_NAME}_lib6 ${PROJECT_NAME}_demo6
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 install(TARGETS ${PROJECT_NAME}_lib7 ${PROJECT_NAME}_demo7
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+install(TARGETS ${PROJECT_NAME}_lib8 ${PROJECT_NAME}_demo8
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

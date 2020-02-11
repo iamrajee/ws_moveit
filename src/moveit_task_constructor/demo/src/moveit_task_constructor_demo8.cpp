@@ -3,7 +3,7 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <rosparam_shortcuts/rosparam_shortcuts.h>
 #include <moveit/planning_scene_interface/planning_scene_interface.h>
-#include <moveit_task_constructor_demo/pick_place_task7.h> // MTC pick/place demo implementation
+#include <moveit_task_constructor_demo/pick_place_task8.h> // MTC pick/place demo implementation
 
 #include <iostream>
 #include<string>

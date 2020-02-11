@@ -4,12 +4,12 @@
     <link name="world" />
 
     <xacro:include filename="$(find panda)/robots/panda_arm.xacro"/>
-    <xacro:panda_arm arm_id="panda1" connected_to="world" xyz="-1 -1 0" />
+    <xacro:panda_arm arm_id="panda1" connected_to="world" xyz="0 -0.5 0" />
     <xacro:include filename="$(find panda)/robots/hand.xacro"/>
     <xacro:hand ns="panda1" rpy="0 0 ${-pi/4}" connected_to="panda1_link8"/>    
 
     <xacro:include filename="$(find panda)/robots/panda_arm.xacro"/>
-    <xacro:panda_arm arm_id="panda2" connected_to="world" xyz="1 1 0" />
+    <xacro:panda_arm arm_id="panda2" connected_to="world" xyz="0 0.5 0" />
     <xacro:include filename="$(find panda)/robots/hand.xacro"/>
     <xacro:hand ns="panda2" rpy="0 0 ${-pi/4}" connected_to="panda2_link8"/>
 

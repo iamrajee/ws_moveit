@@ -1,4 +1,4 @@
-#include <moveit_task_constructor_demo/pick_place_task7.h>
+#include <moveit_task_constructor_demo/pick_place_task8.h>
 #include <rosparam_shortcuts/rosparam_shortcuts.h>
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
@@ -124,7 +124,8 @@ void PickPlaceTask::init() {
 	t.setProperty("hand2_grasping_frame", hand2_frame_);
 	t.setProperty("ik_frame2", hand2_frame_);
 	
-	Stage* current_state = nullptr;           //Forward current_state on to grasp pose generator	
+	Stage* current_state = nullptr;           //Forward current_state on to grasp pose generator
+	Stage* current_state0 = nullptr;	
 	Stage* attach_object_stage = nullptr;  // Forward attach_object_stage to place pose generator
 	// /*
 	current_state = nullptr;
@@ -145,6 +146,7 @@ void PickPlaceTask::init() {
         );
 
 		current_state = applicability_filter.get();
+		// current_state0 = applicability_filter.get();
 		t.add(std::move(applicability_filter));
 	}
 
@@ -155,6 +157,7 @@ void PickPlaceTask::init() {
 		stage->setGoal(arm_home_pose_);
 		// stage->restrictDirection(stages::MoveTo::FORWARD);
 		// current_state = stage.get();
+		// current_state0 = stage.get();
 		t.add(std::move(stage));
 	}
 
@@ -377,6 +380,7 @@ void PickPlaceTask::init() {
 			// stage->properties().property("group").configureInitFrom(Stage::PARENT, hand_group_name_);
 			stage->setGroup(hand_group_name_);
 			stage->setGoal(hand_close_pose_);
+			// current_state0 = stage.get();              //<==doesn't work
 			place->insert(std::move(stage));
 		}
 
@@ -392,7 +396,8 @@ void PickPlaceTask::init() {
 		stage->properties().configureInitFrom(Stage::PARENT, { "group" });
 		stage->setGoal(arm_home_pose_);
 		stage->restrictDirection(stages::MoveTo::FORWARD);
-		current_state = stage.get();
+		// current_state = stage.get();
+		// current_state0 = stage.get();
 		t.add(std::move(stage));
 	}
 	// */
@@ -409,7 +414,9 @@ void PickPlaceTask::init() {
 		auto stage = std::make_unique<stages::MoveTo>("move home2", sampling_planner);
 		stage->setGroup(arm2_group_name_);
 		stage->setGoal(arm2_home_pose_);
+		// stage->setMonitoredStage(current_state0);
 		current_state = stage.get();
+		current_state0 = stage.get();
 		t.add(std::move(stage));
 	}
 
@@ -426,6 +433,7 @@ void PickPlaceTask::init() {
 		auto stage = std::make_unique<stages::Connect>("move to pick2", stages::Connect::GroupPlannerVector{ { arm2_group_name_, sampling_planner } });
 		stage->setTimeout(10.0);
 		stage->properties().configureInitFrom(Stage::PARENT);
+		// stage->setMonitoredStage(current_state0);
 		t.add(std::move(stage));
 	}
 
@@ -437,7 +445,7 @@ void PickPlaceTask::init() {
 
 		t.properties().exposeTo(grasp->properties(), { "eef", "hand", "group", "ik_frame","eef2", "hand2", "group2", "ik_frame2" });
 		grasp->properties().configureInitFrom(Stage::PARENT, { "eef", "hand", "group", "ik_frame","eef2", "hand2", "group2", "ik_frame2" });
-
+		// grasp->setMonitoredStage(current_state0);
         // ---------------------- Approach Object ---------------------- //
 		{
 			auto stage = std::make_unique<stages::MoveRelative>("approach object2", cartesian_planner);
@@ -446,6 +454,7 @@ void PickPlaceTask::init() {
 			stage->properties().configureInitFrom(Stage::PARENT, { "group", "group2" });
 			stage->properties().property("group").configureInitFrom(Stage::PARENT, "group2");
 			stage->setMinMaxDistance(approach_object_min_dist_, approach_object_max_dist_);
+			// stage->setMonitoredStage(current_state0);
 			// Set hand2 forward direction
 			geometry_msgs::Vector3Stamped vec;
 			vec.header.frame_id = hand2_frame_;
@@ -463,7 +472,7 @@ void PickPlaceTask::init() {
 			stage->setPreGraspPose(hand2_open_pose_);
 			stage->setObject(object2);
 			stage->setAngleDelta(M_PI / 12);
-			stage->setMonitoredStage(current_state);  // Hook into current state
+			stage->setMonitoredStage(current_state0);  // Hook into current state
 
 			// Compute IK
 			auto wrapper = std::make_unique<stages::ComputeIK>("grasp pose IK2", std::move(stage));

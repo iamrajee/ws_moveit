@@ -1,0 +1,55 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/rajendra/ws_moveit/devel/include/**",
+                "/opt/ros/melodic/include/**",
+                "/home/rajendra/ws_moveit/src/moveit_robots/baxter/baxter_ikfast_left_arm_plugin/include/**",
+                "/home/rajendra/ws_moveit/src/moveit_robots/baxter/baxter_ikfast_right_arm_plugin/include/**",
+                "/home/rajendra/ws_moveit/src/moveit/moveit_planners/chomp/chomp_motion_planner/include/**",
+                "/home/rajendra/ws_moveit/src/geometric_shapes/include/**",
+                "/home/rajendra/ws_moveit/src/kinova-ros/kinova_moveit/inverse_kinematics_plugins/ikfast/j2n6s300_ikfast/include/**",
+                "/home/rajendra/ws_moveit/src/kinova-ros/kinova_moveit/inverse_kinematics_plugins/ikfast/j2s6s300_ikfast/include/**",
+                "/home/rajendra/ws_moveit/src/kinova-ros/kinova_moveit/inverse_kinematics_plugins/ikfast/j2s7s300_ikfast/include/**",
+                "/home/rajendra/ws_moveit/src/kinova-ros/kinova_moveit/kinova_arm_moveit_demo/include/**",
+                "/home/rajendra/ws_moveit/src/kinova-ros/kinova_driver/include/**",
+                "/home/rajendra/ws_moveit/src/kinova-ros/kinova_moveit/inverse_kinematics_plugins/ikfast/m1n6s300_ikfast/include/**",
+                "/home/rajendra/ws_moveit/src/moveit_grasps/include/**",
+                "/home/rajendra/ws_moveit/src/moveit/moveit_experimental/moveit_jog_arm/include/**",
+                "/home/rajendra/ws_moveit/src/moveit/moveit_planners/chomp/chomp_interface/include/**",
+                "/home/rajendra/ws_moveit/src/moveit/moveit_ros/benchmarks/include/**",
+                "/home/rajendra/ws_moveit/src/moveit/moveit_plugins/moveit_ros_control_interface/include/**",
+                "/home/rajendra/ws_moveit/src/moveit/moveit_ros/move_group/include/**",
+                "/home/rajendra/ws_moveit/src/moveit/moveit_ros/occupancy_map_monitor/include/**",
+                "/home/rajendra/ws_moveit/src/moveit/moveit_ros/robot_interaction/include/**",
+                "/home/rajendra/ws_moveit/src/moveit/moveit_setup_assistant/include/**",
+                "/home/rajendra/ws_moveit/src/moveit/moveit_plugins/moveit_simple_controller_manager/include/**",
+                "/home/rajendra/ws_moveit/src/moveit_task_constructor/core/include/**",
+                "/home/rajendra/ws_moveit/src/moveit_task_constructor/demo/include/**",
+                "/home/rajendra/ws_moveit/src/moveit_visual_tools/include/**",
+                "/home/rajendra/ws_moveit/src/mtc_pour/include/**",
+                "/home/rajendra/ws_moveit/src/robotiq/robotiq_2f_gripper_action_server/include/**",
+                "/home/rajendra/ws_moveit/src/robotiq/robotiq_2f_gripper_control/include/**",
+                "/home/rajendra/ws_moveit/src/robotiq/robotiq_3f_gripper_articulated_gazebo_plugins/include/**",
+                "/home/rajendra/ws_moveit/src/robotiq/robotiq_3f_gripper_control/include/**",
+                "/home/rajendra/ws_moveit/src/robotiq/robotiq_ethercat/include/**",
+                "/home/rajendra/ws_moveit/src/robotiq/robotiq_ft_sensor/include/**",
+                "/home/rajendra/ws_moveit/src/moveit_task_constructor/rviz_marker_tools/include/**",
+                "/home/rajendra/ws_moveit/src/rviz_visual_tools/include/**",
+                "/home/rajendra/ws_moveit/src/moveit/moveit_planners/sbpl/core/sbpl_interface/include/**",
+                "/home/rajendra/ws_moveit/src/universal_robot/ur_kinematics/include/**",
+                "/usr/include/**"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
