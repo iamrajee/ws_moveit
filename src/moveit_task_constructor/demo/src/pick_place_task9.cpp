@@ -2,6 +2,9 @@
 #include <rosparam_shortcuts/rosparam_shortcuts.h>
 #include <tf2/LinearMath/Quaternion.h>
 
+#include <moveit/task_constructor/stages/pour_into.h>              //from mtc_pour/include/moveit/...              //<=============== new
+#include "mtc_pour/demo_utils.hpp"                               ////from mtc_pour/include/mtc_pour/...          //<=============== new
+
 //---------------------------------------------------------------------------------------------------------------------------------------------//
 namespace moveit_task_constructor_demo
 { 
@@ -110,7 +113,7 @@ void PickPlaceTask::init() {
 
 	// ======================= Constraints : don't spill liquid ====================================//
 	moveit_msgs::Constraints upright_constraint;
-	upright_constraint.name = "s_model_tool0:upright:20000:high";
+	upright_constraint.name = "panda_hand_constraints";
 	upright_constraint.orientation_constraints.resize(1);
 	{
 		moveit_msgs::OrientationConstraint& c= upright_constraint.orientation_constraints[0];
@@ -275,7 +278,7 @@ void PickPlaceTask::init() {
 	{
 		auto stage = std::make_unique<stages::Connect>("move to pre-pour pose", stages::Connect::GroupPlannerVector{{arm_group_name_, sampling_planner}});
 		stage->setTimeout(15.0);
-		stage->setPathConstraints(upright_constraint);
+		// stage->setPathConstraints(upright_constraint);
 		stage->properties().configureInitFrom(Stage::PARENT); // TODO: convenience-wrapper
 		t.add(std::move(stage));
 	}
@@ -284,19 +287,16 @@ void PickPlaceTask::init() {
 	{
 		auto stage = std::make_unique<stages::GeneratePose>("pose above glass");
 		geometry_msgs::PoseStamped p;
+		// stage->properties().configureInitFrom(Stage::PARENT, { "ik_frame" });
 		p.header.frame_id= "glass";
 		tf2::Quaternion q;
-		// q.setRPY( 0, 0, 0 );
 		// p.pose.orientation.w= 1;
-		// p.pose.orientation.setRPY( 0, 0, 0 );
-
-		p.pose.orientation.w = -0.653;
-		p.pose.orientation.x = -0.271;
-		p.pose.orientation.y = -0.653;
-		p.pose.orientation.z =  0.271;
-
+		// p.pose.orientation.w= 0.707;
+		// p.pose.orientation.z= 0.707;
+		p.pose.orientation.z= 1;
 		p.pose.position.z= .3;
 		stage->setPose(p);
+		// stage->setObject(object); //will give error its is not graspplacepose
 		stage->properties().configureInitFrom(Stage::PARENT);
 
 		// stage->setMonitoredStage(object_grasped);
@@ -304,6 +304,7 @@ void PickPlaceTask::init() {
 
 		auto wrapper = std::make_unique<stages::ComputeIK>("pre-pour pose", std::move(stage) );
 		wrapper->setMaxIKSolutions(8);
+		wrapper->setIKFrame(grasp_frame_transform_, hand_frame_);															// <=================== !!! set ik for transform hand_frame
 		// TODO adding this will initialize "target_pose" which is internal (or isn't it?)
 		//wrapper->properties().configureInitFrom(Stage::PARENT);
 		wrapper->properties().configureInitFrom(Stage::PARENT, {"eef"}); // TODO: convenience wrapper
@@ -311,6 +312,32 @@ void PickPlaceTask::init() {
 		t.add(std::move(wrapper));
 	}
 
+	    // ======================= pouring ====================================//
+	{
+		auto stage = std::make_unique<mtc_pour::PourInto>("pouring");
+		stage->setBottle("bottle");
+		stage->setContainer("glass");
+		stage->setPourOffset(Eigen::Vector3d(0,0.03,0.01));
+        // stage->setPourOffset(Eigen::Vector3d(0,0.12,0.07)); //(x,y,z) : works: drift from centre
+		stage->setTiltAngle(2.0);
+        // stage->setTiltAngle(3.14);
+        // stage->setPourDuration(ros::Duration(4.0));
+		// stage->setPourDuration(ros::Duration(16.0));  //doesn't to work here                                                         //changed duration here!! <===
+        // stage->setWaypointDuration(ros::Duration(16.0)); //doesn't to work here
+		stage->setPourDuration(ros::Duration(4.0));  //doesn't to work here                                                         //changed duration here!! <===
+        stage->setWaypointDuration(ros::Duration(0.25)); //doesn't to work here
+		{	
+			geometry_msgs::Vector3Stamped pouring_axis;
+			pouring_axis.header.frame_id= "glass"; //s_model_tool0
+			pouring_axis.vector.x=-1.0; //x
+			stage->setPouringAxis(pouring_axis);
+		}
+		stage->properties().configureInitFrom(Stage::PARENT, {"group"});
+		// TODO: This would have unintuitive results:
+		//stage->properties().configureInitFrom(Stage::PARENT);
+		// because it includes "marker_ns"
+		t.add(std::move(stage));
+	}
 
     // ====================== Move to Place ====================== //
 	{
@@ -432,6 +459,7 @@ void PickPlaceTask::init() {
 		t.add(std::move(stage));
 	}
 
+	t.enableIntrospection();
 	//*************************************************************************************************************************************//
 //**********************************************************************************************************************************************//
 	//*************************************************************************************************************************************//
