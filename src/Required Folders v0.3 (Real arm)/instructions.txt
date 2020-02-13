@@ -1,0 +1,16 @@
+
+* move kinova_pick_place directory into : /catkin_ws/src/kinova-ros/kinova_moveit/
+* Replace pcl_pkgs 
+* Compile : catkin_make
+
+Load Drivers
+roslaunch kinova_bringup kinova_robot.launch kinova_robotType:=j2s6s300
+
+Moveit
+roslaunch j2s6s300_moveit_config j2s6s300_robot_demo.launch
+
+PCL
+rosrun pcl_pkgs cylinder input:=/kinect/points2 x y z 
+
+Pick and Place
+rosrun kinova_pick_place jaco_pick_place

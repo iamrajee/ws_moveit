@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>kinova_pick_place</name>
+  <version>0.6.3</version>
+  <description>The moveit_motion_plan package</description>
+  <license>BSD</license>
+
+  <author email="abhinand4as@gmail.com">Abhinand A S</author>
+  <maintainer email="abhinand4as@gmail.com">Abhinand A S</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+
+  <build_depend>cmake_modules</build_depend>
+  <build_depend>eigen_conversions</build_depend>
+  <build_depend>moveit_ros_planning_interface</build_depend>
+  <run_depend>eigen_conversions</run_depend>
+  <run_depend>moveit_ros_planning_interface</run_depend>
+</package>

@@ -3,12 +3,12 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <rosparam_shortcuts/rosparam_shortcuts.h>
 #include <moveit/planning_scene_interface/planning_scene_interface.h>
-#include <moveit_task_constructor_demo/pick_place_task9.h> // MTC pick/place demo implementation
+#include <moveit_task_constructor_demo/pick_place_task10.h> // MTC pick/place demo implementation
 
 #include <iostream>
 #include<string>
 
-#include <geometric_shapes/mesh_operations.h> 					//<============New
+#include <geometric_shapes/mesh_operations.h>           //<============New
 #include <geometric_shapes/shape_operations.h>
 #include <geometric_shapes/shape_extents.h>
 #include <shape_msgs/Mesh.h>
@@ -99,6 +99,8 @@ moveit_msgs::CollisionObject createObject(int i=0) {
 	return object;
 }
 
+// ==================== Create mesh ===========================//
+
 double computeMeshHeight(const shape_msgs::Mesh& mesh) {
 	double x,y,z;
 	geometric_shapes::getShapeExtents(mesh, x, y, z);
@@ -132,13 +134,15 @@ void createmesh() {
 
     bottle_pose.header.frame_id= "world";
     bottle_pose.pose.position.x= 0.5;
-    bottle_pose.pose.position.y= 0;
+    // bottle_pose.pose.position.y= -0.5; //0
+	bottle_pose.pose.position.y= 0.5;
     bottle_pose.pose.position.z= table_height;
     bottle_pose.pose.orientation.w= 1.0;
 
 	glass_pose.header.frame_id= "world";
-	glass_pose.pose.position.x= 0;
-	glass_pose.pose.position.y= 0.5;
+	// glass_pose.pose.position.x= 0;
+	glass_pose.pose.position.x= 0.5;
+	glass_pose.pose.position.y= 0.0; //0.5
 	glass_pose.pose.position.z= 0.0;
 	glass_pose.pose.orientation.w= 1.0;
 
@@ -181,6 +185,9 @@ void createmesh() {
     psi.applyCollisionObjects(objects);
 }
 
+
+//==============================================================//
+
 // ======================== main ====================
 int main(int argc, char** argv) {
 	ROS_INFO_NAMED(LOGNAME, "Init moveit_task_constructor_demo");
@@ -200,7 +207,11 @@ int main(int argc, char** argv) {
 	// spawnObject(psi, createObject());
 
 	// spawnObject(psi, createObject(2)); // <==== new
-	
+
+	// spawnObject(psi, createObject(3)); // <==== new
+
+	// spawnObject(psi, createObject(4)); // <==== new
+
 	createmesh();					  // <==== new
 
 	// --------- RUN ---------

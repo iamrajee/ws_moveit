@@ -27,3 +27,7 @@ Default by MTC
 7 - serial two_panda
 
 8 - Parallelising two_panda
+
+9 - panda single arm pouring
+
+10 - two_panda arm pouring
