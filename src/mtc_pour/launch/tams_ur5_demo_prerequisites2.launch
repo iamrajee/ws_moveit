@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+    <param name="execute" value="True"/>
+    
+	<include file="$(find tams_ur5_setup_moveit_config)/launch/demo2.launch">                                                        <!-- <======== new -->
+		<arg name="ur5_joint_ranges_config" value="$(find tams_ur5_description)/config/joint_ranges/elbow_up.yaml"/>
+	</include>
+
+	<!-- <param name="move_group/constraint_approximations_path" value="$(find mtc_pour)/cadb"/> -->
+
+</launch>

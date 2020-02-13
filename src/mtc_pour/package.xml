@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mtc_pour</name>
+  <version>0.0.0</version>
+  <description>Implement pouring stage and examples</description>
+
+  <maintainer email="me@v4hn.de">Michael 'v4hn' Goerner</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>moveit_task_constructor_core</build_depend>
+  <build_depend>rviz_marker_tools</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>moveit_ros_planning_interface</build_depend>
+
+  <exec_depend>moveit_task_constructor_core</exec_depend>
+  <exec_depend>rviz_marker_tools</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>moveit_ros_planning_interface</exec_depend>
+
+  <export>
+  </export>
+</package>

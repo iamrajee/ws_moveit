@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find tams_ur5_bringup)/launch/tams_ur5_drivers.launch">
+    <arg name="gripper_mode" value="wide_pinch" />
+  </include>
+
+  <!-- This argument enables using a customized configuration of the ur5 joint ranges.
+       Example configuration files can be found inside tams_ur5_description under config/joint_ranges/. -->
+  <arg name="ur5_joint_ranges_config" default="$(find tams_ur5_description)/config/joint_ranges/elbow_up.yaml"/>
+  <include file="$(find tams_ur5_setup_description)/launch/tams_ur5_setup_upload.launch">
+    <arg name="joint_ranges_config" value="$(arg ur5_joint_ranges_config)"/>
+  </include>
+
+  <include file="$(find tams_ur5_setup_moveit_config)/launch/move_group.launch"/>
+  <param name="move_group/constraint_approximations_path" value="$(find mtc_pour)/cadb"/>
+</launch>
