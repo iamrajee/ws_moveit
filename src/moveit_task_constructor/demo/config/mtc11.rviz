@@ -30,7 +30,7 @@ Panels:
         - 106
       solution_sorting:
         column: 1
-        order: 1
+        order: 0
       solutions_splitter:
         - 347
         - 168
@@ -321,11 +321,6 @@ Visualization Manager:
       Markers:
         All at once?: false
         Value: true
-        approach_object: true
-        lift_object: true
-        lower_object: true
-        pouring2: true
-        retreat: true
       Name: Motion Planning Tasks
       Robot:
         Fixed Robot Color: 150; 50; 150
@@ -472,9 +467,9 @@ Visualization Manager:
         Voxel Rendering: Occupied Voxels
       Show Trail: false
       State Display Time: REALTIME
-      Task Solution Topic: /moveit_task_constructor_demo10/solution
+      Task Solution Topic: /moveit_task_constructor_demo11/solution
       Tasks:
-        pick_place_task: 3
+        pick_place_task: 8
       Trail Step Size: 1
       Value: true
   Enabled: true
@@ -493,7 +488,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.351285219192505
+      Distance: 3.1768455505371094
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -508,10 +503,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.1747971475124359
+      Pitch: 0.29979705810546875
       Target Frame: panda_link0
       Value: XYOrbit (rviz)
-      Yaw: 0.4536125659942627
+      Yaw: 0.5236119627952576
     Saved: ~
 Window Geometry:
   Displays:

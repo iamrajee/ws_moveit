@@ -66,7 +66,9 @@ add_library(${PROJECT_NAME}_lib10 src/pick_place_task10.cpp)
 set_target_properties(${PROJECT_NAME}_lib10 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place10)
 add_dependencies(${PROJECT_NAME}_lib10 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-
+add_library(${PROJECT_NAME}_lib11 src/pick_place_task11.cpp)
+set_target_properties(${PROJECT_NAME}_lib11 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place11)
+add_dependencies(${PROJECT_NAME}_lib11 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
 
@@ -124,6 +126,12 @@ target_link_libraries(${PROJECT_NAME}_demo10 ${PROJECT_NAME}_lib10 ${catkin_LIBR
 set_target_properties(${PROJECT_NAME}_demo10 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo10)
 add_dependencies(${PROJECT_NAME}_demo10 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+add_executable(${PROJECT_NAME}_demo11 src/moveit_task_constructor_demo11.cpp)
+target_link_libraries(${PROJECT_NAME}_demo11 ${PROJECT_NAME}_lib11 ${catkin_LIBRARIES})              # <= important lib11 !!!
+set_target_properties(${PROJECT_NAME}_demo11 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo11)
+add_dependencies(${PROJECT_NAME}_demo11 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
 install(TARGETS ${PROJECT_NAME}_lib ${PROJECT_NAME}_demo
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
@@ -170,6 +178,11 @@ install(TARGETS ${PROJECT_NAME}_lib9 ${PROJECT_NAME}_demo9
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 install(TARGETS ${PROJECT_NAME}_lib10 ${PROJECT_NAME}_demo10
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+install(TARGETS ${PROJECT_NAME}_lib11 ${PROJECT_NAME}_demo11
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
