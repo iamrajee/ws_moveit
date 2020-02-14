@@ -3,7 +3,7 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <rosparam_shortcuts/rosparam_shortcuts.h>
 #include <moveit/planning_scene_interface/planning_scene_interface.h>
-#include <moveit_task_constructor_demo/pick_place_task11.h> // MTC pick/place demo implementation
+#include <moveit_task_constructor_demo/pick_place_task12.h> // MTC pick/place demo implementation
 
 #include <iostream>
 #include<string>
@@ -130,19 +130,7 @@ void createmesh() {
 	
     const double table_height= 0;
 
-	// bottle_name : "bottle"
-	// bottle_reference_frame : "world"
-	// bottle_dimensions : [0.12, 0.3] #h,r
-	// bottle_pose : [-0.5,0.5,0, 0,0,0] #x,y,z,r,p,y
-
-	// glass_name : "glass"
-	// glass_reference_frame : "world"
-	// glass_dimensions : [0.25, 0.3] #h,r
-	// glass_pose : [0.5,0,0, 0,0,0] #x,y,z,r,p,y
-
 	std::string bottle_name, bottle_reference_frame, bottle_mesh, glass_name, glass_reference_frame, glass_mesh,world_frame;
-	// std::string bottle_name, bottle_reference_frame, glass_name, glass_reference_frame;
-	// std::string bottle_mesh,glass_mesh;
 	std::vector<double> bottle_dimensions, glass_dimensions;
 	geometry_msgs::Pose bottle_pose_only, glass_pose_only;
 
@@ -170,26 +158,9 @@ void createmesh() {
 	glass_pose.header.frame_id= world_frame;
     glass_pose.pose= glass_pose_only;
 
-    // bottle_pose.header.frame_id= "world";
-    // bottle_pose.pose.position.x= -0.5;
-    // // bottle_pose.pose.position.y= -0.5; //0
-	// bottle_pose.pose.position.y= 0.5;
-    // bottle_pose.pose.position.z= 0;
-    // bottle_pose.pose.orientation.w= 1.0;
-
-	// glass_pose.header.frame_id= "world";
-	// // glass_pose.pose.position.x= 0;
-	// glass_pose.pose.position.x= 0.5;
-	// glass_pose.pose.position.y= 0.0; //0.5
-	// glass_pose.pose.position.z= 0.0;
-	// glass_pose.pose.orientation.w= 1.0;
-
     moveit::planning_interface::PlanningSceneInterface psi;
     std::vector<moveit_msgs::CollisionObject> objects;
     // mtc_pour::setupObjects(objs, bottle, glass, "package://mtc_pour/meshes/small_bottle.stl");
-    // const std::string bottle_mesh="package://mtc_pour/meshes/small_bottle.stl";
-    // const std::string bottle_mesh="package://mtc_pour/meshes/small_bottle.stl"; //bottle.stl
-	// const std::string glass_mesh="package://mtc_pour/meshes/glass.stl"; //glass_binary.stl
 
     {
         // add bottle

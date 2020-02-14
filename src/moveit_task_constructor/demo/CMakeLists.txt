@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
 	moveit_ros_planning_interface
 	rosparam_shortcuts
   mtc_pour
+  std_msgs
 ) 
 
 catkin_package(
@@ -69,6 +70,10 @@ add_dependencies(${PROJECT_NAME}_lib10 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${cat
 add_library(${PROJECT_NAME}_lib11 src/pick_place_task11.cpp)
 set_target_properties(${PROJECT_NAME}_lib11 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place11)
 add_dependencies(${PROJECT_NAME}_lib11 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_library(${PROJECT_NAME}_lib12 src/pick_place_task12.cpp)
+set_target_properties(${PROJECT_NAME}_lib12 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place12)
+add_dependencies(${PROJECT_NAME}_lib12 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
 
@@ -131,6 +136,11 @@ target_link_libraries(${PROJECT_NAME}_demo11 ${PROJECT_NAME}_lib11 ${catkin_LIBR
 set_target_properties(${PROJECT_NAME}_demo11 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo11)
 add_dependencies(${PROJECT_NAME}_demo11 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+add_executable(${PROJECT_NAME}_demo12 src/moveit_task_constructor_demo12.cpp)
+target_link_libraries(${PROJECT_NAME}_demo12 ${PROJECT_NAME}_lib12 ${catkin_LIBRARIES})              # <= important lib12 !!!
+set_target_properties(${PROJECT_NAME}_demo12 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo12)
+add_dependencies(${PROJECT_NAME}_demo12 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 
 install(TARGETS ${PROJECT_NAME}_lib ${PROJECT_NAME}_demo
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
@@ -183,6 +193,11 @@ install(TARGETS ${PROJECT_NAME}_lib10 ${PROJECT_NAME}_demo10
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 install(TARGETS ${PROJECT_NAME}_lib11 ${PROJECT_NAME}_demo11
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+install(TARGETS ${PROJECT_NAME}_lib12 ${PROJECT_NAME}_demo12
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

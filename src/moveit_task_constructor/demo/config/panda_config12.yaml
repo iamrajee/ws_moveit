@@ -27,26 +27,10 @@ object_dimensions: [0.25, 0.02] # [height, radius]
 object_pose: [-0.5 , -0.5, 0.0, 0, 0, 0]
 object_reference_frame: "world"
 
-# object_name: "bottle"                                   #for bottle
-# object_dimensions: [0.25, 0.02] # [height, radius]
-# object_pose: [0.5 , 0, 0, 0, 0, 0]
-# object_reference_frame: "world"
-
-# object_name: "glass"                                   #for glass
-# # object_dimensions: [0.12, 0.02] # [height, radius] #ground
-# object_dimensions: [0.12 0.02] # [height, radius]
-# object_pose: [0.5 , 0, 0, 0, 0, 0]
-# object_reference_frame: "world"
-
 object2_name: "cylinder2"
 object2_dimensions: [0.25, 0.02] # [height, radius]
 object2_pose: [-0.5, 0.5, 0.0, 0, 0, 0]
 object2_reference_frame: "world"
-
-# object2_name: "bottle"
-# object2_dimensions: [0.25, 0.02] # [height, radius]
-# object2_pose: [0.5 , 0, 0, 0, 0, 0]
-# object2_reference_frame: "world"
 
 object3_name: "cylinder3"
 object3_dimensions: [0.25, 0.02] # [height, radius]
@@ -73,24 +57,14 @@ table2_pose: [-0.5, 0.5, 0, 0, 0, 0]
 table2_reference_frame: "world"
 # surface2_link: "{{ table2_name }}"
 
-# pre_pour_pose: [0, 0, 0.2, 0, 0, 0, 0.1] #x,y,z, w, x',y',z' quaterniun ??
-# pre_pour_pose: [0, 0, 0.2, 0, 0, 0, 1] #x,y,z, w, x',y',z' ?? #both valid
-pre_pour_pose: [0, 0, 0.2, 0, 0, 3.14] #x,y,z, x',y',z' ??      #both valid
-# pre_pour_pose: [0.25, 0.25, 0.2, 0, 0, 3.14] #pouring from very away
-
-
 # Gripper grasp frame transform [x,y,z,r,p,y]
 grasp_frame_transform: [0.02, -0.02, 0.11, 1.571, 0.785, 1.571]
 
-# Place pose [x,y,z,r,p,y]
-# place_pose: [0.5, -1, 0, 0, 0, 0] #for cylinder
-# place_pose: [-0.5, -0.25, 0, 0, 0, 0] # for bottle
+# Place pose
 place_pose: [0, 0, 0.3, 0, 0, 0] # for glass
-# place_pose2: [0.5, 0, 0.271, 1.571, 0, 0]
-# place_pose2: [0.5, 1, 0.125, 0, 0, 0] 
-# place_pose2: [0.5, 0.5, 0.5, 1.571, 1.571, 1.571] #[x,y,z,r,p,y,?] #transformation applied in z', y',  x' order??
 place_pose2: [0.5, 0.5, 0, 0, 0, 0] #[x,y,z,r,p,y] #simple
-# place_pose2: [0.5, 0.5, 0.5, 0, 0, 0, 0] #x,y,z,w,x',y',z' #quaterniun
+# place_pose2: [0.5, 0.5, 0.5, 1.571, 1.571, 1.571] #[x,y,z,r,p,y,?] #transformation applied in z', y',  x' order??
+
 place_surface_offset: 0.0001 # place offset from table
 
 # Valid distance range when approaching an object for picking
@@ -103,10 +77,13 @@ lift_object_max_dist: 0.4
 
 pour_tilt_angle: 2.0
 
-# pour_offset : [0,0.03,0.01]
+# pour_offset : [0,0.03,0.01] #
 pour_duration : 4.0
 pour_waypoint_duration : 0.25
-# pouring_axis_vector : [1.0,0,0,0]
+# pouring_axis_vector : [1.0,0,0,0] #
+
+# pre_pour_pose: [0, 0, 0.2, 0, 0, 0, 1] #x,y,z, w, x',y',z' ?? #both valid
+pre_pour_pose: [0, 0, 0.2, 0, 0, 3.14] #x,y,z, x',y',z' ??      #both valid
 
 bottle_name : "bottle1"
 bottle_reference_frame : "world"

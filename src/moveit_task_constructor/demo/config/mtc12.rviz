@@ -472,7 +472,7 @@ Visualization Manager:
         Voxel Rendering: Occupied Voxels
       Show Trail: false
       State Display Time: REALTIME
-      Task Solution Topic: /moveit_task_constructor_demo11/solution
+      Task Solution Topic: /moveit_task_constructor_demo12/solution
       Tasks:
         pick_place_task: 1
       Trail Step Size: 1

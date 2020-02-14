@@ -1,4 +1,4 @@
-#include <moveit_task_constructor_demo/pick_place_task11.h>
+#include <moveit_task_constructor_demo/pick_place_task12.h>
 #include <rosparam_shortcuts/rosparam_shortcuts.h>
 
 #include <tf2/LinearMath/Quaternion.h>
@@ -358,12 +358,13 @@ void PickPlaceTask::init() {
 		geometry_msgs::PoseStamped p;
 		// stage->properties().configureInitFrom(Stage::PARENT, { "ik_frame" });
 		p.header.frame_id= glass_name;
-		tf2::Quaternion q;
+		p.pose=pre_pour_pose;
+		// tf2::Quaternion q;
 		// p.pose.orientation.w= 1;
 		// p.pose.orientation.w= 0.707;
 		// p.pose.orientation.z= 0.707;
-		p.pose.orientation.z= 1;
-		p.pose.position.z= .3;
+		// p.pose.orientation.z= 1;
+		// p.pose.position.z= 0.3;
 		stage->setPose(p);
 		// stage->setObject(object); //will give error its is not graspplacepose
 		stage->properties().configureInitFrom(Stage::PARENT);
@@ -387,14 +388,9 @@ void PickPlaceTask::init() {
 		stage->setBottle(bottle_name);
 		stage->setContainer(glass_name);
 		stage->setPourOffset(Eigen::Vector3d(0,0.03,0.01));
-        // stage->setPourOffset(Eigen::Vector3d(0,0.12,0.07)); //(x,y,z) : works: drift from centre
-		stage->setTiltAngle(2.0);
-        // stage->setTiltAngle(3.14);
-        // stage->setPourDuration(ros::Duration(4.0));
-		// stage->setPourDuration(ros::Duration(16.0));  //doesn't to work here                                                         //changed duration here!! <===
-        // stage->setWaypointDuration(ros::Duration(16.0)); //doesn't to work here
-		stage->setPourDuration(ros::Duration(4.0));  //doesn't to work here                                                         //changed duration here!! <===
-        stage->setWaypointDuration(ros::Duration(0.25)); //doesn't to work here
+		stage->setTiltAngle(pour_tilt_angle);
+		stage->setPourDuration(ros::Duration(pour_duration));       //make sure turn on REALTIME in rviz to observe the change made here                                               //changed duration here!! <===
+        stage->setWaypointDuration(ros::Duration(pour_waypoint_duration)); //make sure turn on REALTIME in rviz to observe the change made here
 		{	
 			geometry_msgs::Vector3Stamped pouring_axis;
 			pouring_axis.header.frame_id= glass_name; //s_model_tool0
@@ -730,25 +726,12 @@ void PickPlaceTask::init() {
 		stage->setBottle(bottle_name);
 		stage->setContainer(glass_name);
 
-		// Eigen::Vector3d pour_offset;
-		// // geometry_msgs::Vector3Stamped pouring_axis;
-		// geometry_msgs::Vector3 pouring_axis_vector;
-		// double pour_duration,pour_waypoint_duration;
-
-		// # pour_offset : [0,0.03,0.01]
-		// pour_duration : 4.0
-		// pour_waypoint_duration : 0.25
-		// pouring_axis_vector : [1.0,0,0]
-
-		stage->setPourOffset(Eigen::Vector3d(0,0.03,0.01));
 		// stage->setPourOffset(pour_offset);
         // stage->setPourOffset(Eigen::Vector3d(0,0.12,0.07)); //(x,y,z) : works: drift from centre
-		// stage->setTiltAngle(2.0);
+		stage->setPourOffset(Eigen::Vector3d(0,0.03,0.01));
+
 		stage->setTiltAngle(pour_tilt_angle);
-        // stage->setTiltAngle(3.14);		
-		// stage->setPourDuration(ros::Duration(4.0));
 		stage->setPourDuration(ros::Duration(pour_duration));                												                                      //changed duration here!! <===
-        // stage->setWaypointDuration(ros::Duration(0.25)); 
         stage->setWaypointDuration(ros::Duration(pour_waypoint_duration));
 		{	
 

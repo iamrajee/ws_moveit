@@ -30,4 +30,8 @@ Default by MTC
 
 9 - panda single arm pouring
 
-10 - two_panda arm pouring
+10 - two_panda arm pouring ground 
+
+11 - two_panda arm pouring, glass on hight, arm sysmetric about origin
+
+12 - two_panda arm pouring(cleaned)
