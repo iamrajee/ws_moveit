@@ -34,13 +34,10 @@ Panels:
       solutions_splitter:
         - 496
         - 240
-      solutions_view_columns:
-        - 57
-        - 58
-        - 123
+      solutions_view_columns: ~
       tasks_view_columns:
-        - 322
-        - 100
+        - 365
+        - 57
         - 58
 Preferences:
   PromptSaveOnExit: true
@@ -321,11 +318,6 @@ Visualization Manager:
       Markers:
         All at once?: false
         Value: true
-        approach_object: true
-        lift_object: true
-        lower_object: true
-        pouring2: true
-        retreat: true
       Name: Motion Planning Tasks
       Robot:
         Fixed Robot Color: 150; 50; 150
@@ -474,7 +466,7 @@ Visualization Manager:
       State Display Time: REALTIME
       Task Solution Topic: /moveit_task_constructor_demo12/solution
       Tasks:
-        pick_place_task: 1
+        pick_place_task: 16
       Trail Step Size: 1
       Value: true
   Enabled: true

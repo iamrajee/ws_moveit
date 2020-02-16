@@ -33,7 +33,7 @@ double pour_tilt_angle;
 // Eigen::Vector3d pour_offset;
 // geometry_msgs::Vector3Stamped pouring_axis;
 // geometry_msgs::Vector3 pouring_axis_vector;
-double pour_duration, pour_waypoint_duration;
+double pour_duration, pour_waypoint_duration,retreat_object_min_dist,retreat_object_max_dist;
 
 std::string bottle_name, bottle_reference_frame, glass_name, glass_reference_frame;
 std::vector<double> bottle_dimensions, glass_dimensions;
@@ -86,6 +86,8 @@ void PickPlaceTask::loadParameters() {
 	errors += !rosparam_shortcuts::get(LOGNAME, pnh, "approach_object_max_dist", approach_object_max_dist_);
 	errors += !rosparam_shortcuts::get(LOGNAME, pnh, "lift_object_min_dist", lift_object_min_dist_);
 	errors += !rosparam_shortcuts::get(LOGNAME, pnh, "lift_object_max_dist", lift_object_max_dist_);
+	errors += !rosparam_shortcuts::get(LOGNAME, pnh, "retreat_object_min_dist", retreat_object_min_dist);
+	errors += !rosparam_shortcuts::get(LOGNAME, pnh, "retreat_object_max_dist", retreat_object_max_dist);
 	errors += !rosparam_shortcuts::get(LOGNAME, pnh, "place_surface_offset", place_surface_offset_);
 	errors += !rosparam_shortcuts::get(LOGNAME, pnh, "place_pose", place_pose_);
 	errors += !rosparam_shortcuts::get(LOGNAME, pnh, "place_pose2", place_pose2_);                           // <=== new
@@ -492,7 +494,7 @@ void PickPlaceTask::init() {
 		{
 			auto stage = std::make_unique<stages::MoveRelative>("retreat after place", cartesian_planner);
 			stage->properties().configureInitFrom(Stage::PARENT, { "group" });
-			stage->setMinMaxDistance(.12, .25);
+			stage->setMinMaxDistance(retreat_object_min_dist, retreat_object_max_dist);
 			stage->setIKFrame(hand_frame_);
 			stage->properties().set("marker_ns", "retreat");
 			geometry_msgs::Vector3Stamped vec;

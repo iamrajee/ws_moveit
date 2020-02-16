@@ -55,7 +55,7 @@ moveit_msgs::CollisionObject createTable(int i=0) {
 	object.primitives.resize(1);
 	object.primitives[0].type = shape_msgs::SolidPrimitive::BOX;
 	object.primitives[0].dimensions = table_dimensions;
-	pose.position.z -= 0.5 * table_dimensions[2];  // align top surface of table with ground !!! its minus
+	// pose.position.z -= 0.5 * table_dimensions[2];  // align top surface of table with ground !!! its minus
 	object.primitive_poses.push_back(pose);
 	return object;
 }
@@ -94,7 +94,7 @@ moveit_msgs::CollisionObject createObject(int i=0) {
 	object.primitives.resize(1);
 	object.primitives[0].type = shape_msgs::SolidPrimitive::CYLINDER;
 	object.primitives[0].dimensions = object_dimensions;
-	pose.position.z += 0.5 * object_dimensions[0]; //??
+	// pose.position.z += 0.5 * object_dimensions[0]; //??
 	object.primitive_poses.push_back(pose);
 	return object;
 }
@@ -221,6 +221,9 @@ int main(int argc, char** argv) {
 
 	// spawnObject(psi, createObject(4)); // <==== new
 
+	spawnObject(psi, createTable());
+	spawnObject(psi, createTable(2));
+	spawnObject(psi, createObject(3));
 	createmesh();					  // <==== new
 
 	// --------- RUN ---------
