@@ -136,17 +136,18 @@ void PickPlaceTask::init() {
 	}
 	// ====================== test container ====================== //
 	{ 
-		auto test_container = std::make_unique<SerialContainer>("test container");  //worked fine !!
+		// auto test_container = std::make_unique<SerialContainer>("test container");  //worked fine !!
 		// auto test_container = std::make_unique<ParallelContainerBase>("test container"); //gave compiletime error ??
 		// auto test_container = std::make_unique<Alternatives>("test container"); //gave runtime error ??
 		// auto test_container = std::make_unique<Fallbacks>("test container"); //gave runtime error ??
-		// auto test_container = std::make_unique<Merger>("test container");//gave runtime error ??
+		auto test_container = std::make_unique<Merger>("test container");//gave runtime error ??
 
 		// ====================== Move to Home ====================== //
 		{
 			auto stage = std::make_unique<stages::MoveTo>("move home", sampling_planner);
 			stage->setGroup(arm_group_name_);
 			stage->setGoal(arm_home_pose_);
+			stage->restrictDirection(stages::MoveTo::FORWARD);
 			test_container->insert(std::move(stage));
 		}
 		// ====================== Move to Home 2 ====================== //
@@ -154,6 +155,7 @@ void PickPlaceTask::init() {
 			auto stage = std::make_unique<stages::MoveTo>("move home2", sampling_planner);
 			stage->setGroup(arm2_group_name_);
 			stage->setGoal(arm2_home_pose_);
+			stage->restrictDirection(stages::MoveTo::FORWARD);
 			test_container->insert(std::move(stage));
 		}
 		t.add(std::move(test_container));

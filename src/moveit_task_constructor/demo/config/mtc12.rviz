@@ -33,13 +33,10 @@ Panels:
       solutions_splitter:
         - 666
         - 70
-      solutions_view_columns:
-        - 57
-        - 0
-        - 0
+      solutions_view_columns: ~
       tasks_view_columns:
-        - 57
         - 536
+        - 57
         - 57
 Preferences:
   PromptSaveOnExit: true
@@ -71,11 +68,11 @@ Visualization Manager:
       Marker Topic: /move_group/display_contacts
       Name: MarkerArray
       Namespaces:
-        {}
+        panda2_link3=cylinder3: true
       Queue Size: 100
       Value: true
     - Class: moveit_rviz_plugin/PlanningScene
-      Enabled: false
+      Enabled: true
       Move Group Namespace: ""
       Name: PlanningScene
       Planning Scene Topic: /move_group/monitored_planning_scene
@@ -220,7 +217,7 @@ Visualization Manager:
         Robot Alpha: 0.10000000149011612
         Show Robot Collision: false
         Show Robot Visual: true
-      Value: false
+      Value: true
     - Class: rviz/TF
       Enabled: true
       Frame Timeout: 15
@@ -320,11 +317,6 @@ Visualization Manager:
       Markers:
         All at once?: false
         Value: true
-        approach_object: true
-        lift_object: true
-        lower_object: true
-        pouring2: true
-        retreat: true
       Name: Motion Planning Tasks
       Robot:
         Fixed Robot Color: 150; 50; 150
@@ -473,7 +465,7 @@ Visualization Manager:
       State Display Time: REALTIME
       Task Solution Topic: /moveit_task_constructor_demo12/solution
       Tasks:
-        pick_place_task: 8
+        pick_place_task: 0
       Trail Step Size: 1
       Value: true
   Enabled: true

@@ -118,14 +118,25 @@ void PickPlaceTask::init() {
 	{
 		moveit_msgs::OrientationConstraint& c= upright_constraint.orientation_constraints[0];
 		c.link_name= "panda_hand";   //constraining tool frame
+		//0 0 0.10 1.571 -1.571 1.571 //panda_hand -> panda_end(same as world)
 		// c.link_name= "panda_end"; //not found
 		// c.link_name= "bottle";
 		// c.link_name= "panda_leftfinger";
 		c.header.frame_id= "world"; //reference frame
-		c.orientation.w= 1.0;
-		c.absolute_x_axis_tolerance= 0.65;
-		c.absolute_y_axis_tolerance= 0.65;
+		// c.orientation.w= 1.0;
+
+		//equalavent to rpy= -pi, pi/2, 0
+		c.orientation.w= 0;
+		c.orientation.x= -0.707;
+		c.orientation.y= 0;
+		c.orientation.z= -0.707;
+
+		// c.absolute_x_axis_tolerance= 0.65;
+		// c.absolute_y_axis_tolerance= 0.65;
+		c.absolute_x_axis_tolerance= M_PI;
+		c.absolute_y_axis_tolerance= M_PI;
 		c.absolute_z_axis_tolerance= M_PI;   //any yaw is fine
+
 		c.weight= 1.0;
 	}
 
@@ -281,7 +292,7 @@ void PickPlaceTask::init() {
 	{
 		auto stage = std::make_unique<stages::Connect>("move to pre-pour pose", stages::Connect::GroupPlannerVector{{arm_group_name_, sampling_planner}});
 		stage->setTimeout(15.0);
-		// stage->setPathConstraints(upright_constraint);
+		stage->setPathConstraints(upright_constraint);
 		stage->properties().configureInitFrom(Stage::PARENT); // TODO: convenience-wrapper
 		t.add(std::move(stage));
 	}
@@ -293,6 +304,11 @@ void PickPlaceTask::init() {
 		// stage->properties().configureInitFrom(Stage::PARENT, { "ik_frame" });
 		p.header.frame_id= "glass";
 		tf2::Quaternion q;
+		
+		// q.setRPY(0,0,0);
+		// p.pose.orientation = q;
+
+
 		// p.pose.orientation.w= 1;
 		// p.pose.orientation.w= 0.707;
 		// p.pose.orientation.z= 0.707;

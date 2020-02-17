@@ -41,11 +41,11 @@ Panels:
         column: 1
         order: 0
       solutions_splitter:
-        - 384
-        - 186
+        - 497
+        - 73
       solutions_view_columns: ~
       tasks_view_columns:
-        - 268
+        - 381
         - 57
         - 57
 Preferences:
@@ -315,7 +315,7 @@ Visualization Manager:
       State Display Time: REALTIME
       Task Solution Topic: /moveit_task_constructor_demo9/solution
       Tasks:
-        pick_place_task: 0
+        pick_place_task: 12
       Trail Step Size: 1
       Value: true
   Enabled: true
@@ -334,7 +334,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 1.612231731414795
+      Distance: 1.3781976699829102
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -349,10 +349,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -0.05520252883434296
+      Pitch: 0.3297973573207855
       Target Frame: panda_link0
       Value: XYOrbit (rviz)
-      Yaw: 6.243617534637451
+      Yaw: 0.03543664515018463
     Saved: ~
 Window Geometry:
   Displays:
