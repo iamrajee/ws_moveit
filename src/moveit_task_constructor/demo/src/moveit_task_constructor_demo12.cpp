@@ -175,7 +175,7 @@ void createmesh() {
         // The input pose is interpreted as a point *on* the table
         auto mesh_height = computeMeshHeight(objects.back().meshes[0]);
         objects.back().mesh_poses[0].position.z+= computeMeshHeight(objects.back().meshes[0])/2 + .002;
-        ROS_INFO_STREAM("DEBUG: mesh height: "<< computeMeshHeight(objects.back().meshes[0]));
+        ROS_INFO_STREAM("DEBUG: bottle height: "<< computeMeshHeight(objects.back().meshes[0]));
     }
 
 	{
@@ -187,8 +187,10 @@ void createmesh() {
 			glass_mesh);
 		objects.back().header= glass_pose.header;
 		objects.back().mesh_poses[0]= glass_pose.pose;
+
 		// The input pose is interpreted as a point *on* the table
 		objects.back().mesh_poses[0].position.z+= computeMeshHeight(objects.back().meshes[0])/2 + .002;
+		ROS_INFO_STREAM("DEBUG: glass height: "<< computeMeshHeight(objects.back().meshes[0]));
 	}
 
     psi.applyCollisionObjects(objects);

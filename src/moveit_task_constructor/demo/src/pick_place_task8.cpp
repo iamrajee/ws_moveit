@@ -127,40 +127,75 @@ void PickPlaceTask::init() {
 	Stage* current_state = nullptr;           //Forward current_state on to grasp pose generator
 	Stage* current_state0 = nullptr;	
 	Stage* attach_object_stage = nullptr;  // Forward attach_object_stage to place pose generator
-	// /*
-	current_state = nullptr;
+
+
     // ====================== Current State ====================== //
 	{
 		auto _current_state = std::make_unique<stages::CurrentState>("current state");
+		t.add(std::move(_current_state));
+	}
+	// ====================== test container ====================== //
+	{ 
+		auto test_container = std::make_unique<SerialContainer>("test container");  //worked fine !!
+		// auto test_container = std::make_unique<ParallelContainerBase>("test container"); //gave compiletime error ??
+		// auto test_container = std::make_unique<Alternatives>("test container"); //gave runtime error ??
+		// auto test_container = std::make_unique<Fallbacks>("test container"); //gave runtime error ??
+		// auto test_container = std::make_unique<Merger>("test container");//gave runtime error ??
 
-		// Verify that object is not attached
-		auto applicability_filter = std::make_unique<stages::PredicateFilter>("applicability test", std::move(_current_state));
-		applicability_filter->setPredicate(
-            [object](const SolutionBase& s, std::string& comment) {
-			    if (s.start()->scene()->getCurrentState().hasAttachedBody(object)) {
-			    	comment = "object with id '" + object + "' is already attached and cannot be picked";
-			    	return false;
-			    }
-			    return true;
-            }
-        );
-
-		current_state = applicability_filter.get();
-		// current_state0 = applicability_filter.get();
-		t.add(std::move(applicability_filter));
+		// ====================== Move to Home ====================== //
+		{
+			auto stage = std::make_unique<stages::MoveTo>("move home", sampling_planner);
+			stage->setGroup(arm_group_name_);
+			stage->setGoal(arm_home_pose_);
+			test_container->insert(std::move(stage));
+		}
+		// ====================== Move to Home 2 ====================== //
+		{
+			auto stage = std::make_unique<stages::MoveTo>("move home2", sampling_planner);
+			stage->setGroup(arm2_group_name_);
+			stage->setGoal(arm2_home_pose_);
+			test_container->insert(std::move(stage));
+		}
+		t.add(std::move(test_container));
 	}
 
-	// ====================== Move to Home ====================== //
-	{
-		auto stage = std::make_unique<stages::MoveTo>("move home", sampling_planner);
-		stage->properties().configureInitFrom(Stage::PARENT, { "group" });
-		stage->setGoal(arm_home_pose_);
-		// stage->restrictDirection(stages::MoveTo::FORWARD);
-		// current_state = stage.get();
-		// current_state0 = stage.get();
-		t.add(std::move(stage));
-	}
 
+
+
+	// /*
+	// current_state = nullptr;
+    // // ====================== Current State ====================== //
+	// {
+	// 	auto _current_state = std::make_unique<stages::CurrentState>("current state");
+
+	// 	// Verify that object is not attached
+	// 	auto applicability_filter = std::make_unique<stages::PredicateFilter>("applicability test", std::move(_current_state));
+	// 	applicability_filter->setPredicate(
+    //         [object](const SolutionBase& s, std::string& comment) {
+	// 		    if (s.start()->scene()->getCurrentState().hasAttachedBody(object)) {
+	// 		    	comment = "object with id '" + object + "' is already attached and cannot be picked";
+	// 		    	return false;
+	// 		    }
+	// 		    return true;
+    //         }
+    //     );
+
+	// 	current_state = applicability_filter.get();
+	// 	// current_state0 = applicability_filter.get();
+	// 	t.add(std::move(applicability_filter));
+	// }
+
+	// // ====================== Move to Home ====================== //
+	// {
+	// 	auto stage = std::make_unique<stages::MoveTo>("move home", sampling_planner);
+	// 	stage->properties().configureInitFrom(Stage::PARENT, { "group" });
+	// 	stage->setGoal(arm_home_pose_);
+	// 	// stage->restrictDirection(stages::MoveTo::FORWARD);
+	// 	current_state = stage.get();
+	// 	// current_state0 = stage.get();
+	// 	t.add(std::move(stage));
+	// }
+	/*
     // ====================== Open Hand ====================== //
 	{
 		auto stage = std::make_unique<stages::MoveTo>("open hand", sampling_planner);
@@ -410,16 +445,17 @@ void PickPlaceTask::init() {
 	// /*
 
 	// ====================== Move to Home ====================== //
-	{
-		auto stage = std::make_unique<stages::MoveTo>("move home2", sampling_planner);
-		stage->setGroup(arm2_group_name_);
-		stage->setGoal(arm2_home_pose_);
-		// stage->setMonitoredStage(current_state0);
-		current_state = stage.get();
-		current_state0 = stage.get();
-		t.add(std::move(stage));
-	}
+	// {
+	// 	auto stage = std::make_unique<stages::MoveTo>("move home2", sampling_planner);
+	// 	stage->setGroup(arm2_group_name_);
+	// 	stage->setGoal(arm2_home_pose_);
+	// 	// stage->setMonitoredStage(current_state0);
+	// 	current_state = stage.get();
+	// 	current_state0 = stage.get();
+	// 	t.add(std::move(stage));
+	// }
 
+	/*
     // ====================== Open Hand ====================== //
 	{
 		auto stage = std::make_unique<stages::MoveTo>("open hand2", sampling_planner);
@@ -665,7 +701,7 @@ void PickPlaceTask::init() {
 		t.add(std::move(stage));
 	}
 
-	// */
+	*/
 }
 
 

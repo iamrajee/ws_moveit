@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /PlanningScene1/Scene Geometry1
         - /TF1/Tree1
-        - /Motion Planning Tasks1
         - /Motion Planning Tasks1/Robot1
         - /Motion Planning Tasks1/Scene1
         - /Motion Planning Tasks1/Tasks1
@@ -32,13 +31,16 @@ Panels:
         column: 1
         order: 0
       solutions_splitter:
-        - 496
-        - 240
-      solutions_view_columns: ~
-      tasks_view_columns:
-        - 365
+        - 666
+        - 70
+      solutions_view_columns:
         - 57
-        - 58
+        - 0
+        - 0
+      tasks_view_columns:
+        - 57
+        - 536
+        - 57
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -73,7 +75,7 @@ Visualization Manager:
       Queue Size: 100
       Value: true
     - Class: moveit_rviz_plugin/PlanningScene
-      Enabled: true
+      Enabled: false
       Move Group Namespace: ""
       Name: PlanningScene
       Planning Scene Topic: /move_group/monitored_planning_scene
@@ -218,7 +220,7 @@ Visualization Manager:
         Robot Alpha: 0.10000000149011612
         Show Robot Collision: false
         Show Robot Visual: true
-      Value: true
+      Value: false
     - Class: rviz/TF
       Enabled: true
       Frame Timeout: 15
@@ -318,6 +320,11 @@ Visualization Manager:
       Markers:
         All at once?: false
         Value: true
+        approach_object: true
+        lift_object: true
+        lower_object: true
+        pouring2: true
+        retreat: true
       Name: Motion Planning Tasks
       Robot:
         Fixed Robot Color: 150; 50; 150
@@ -466,7 +473,7 @@ Visualization Manager:
       State Display Time: REALTIME
       Task Solution Topic: /moveit_task_constructor_demo12/solution
       Tasks:
-        pick_place_task: 16
+        pick_place_task: 8
       Trail Step Size: 1
       Value: true
   Enabled: true
@@ -485,7 +492,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.1768455505371094
+      Distance: 4.250103950500488
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -500,10 +507,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.0447971373796463
+      Pitch: -0.020202986896038055
       Target Frame: panda_link0
       Value: XYOrbit (rviz)
-      Yaw: 6.181797981262207
+      Yaw: 0.47861140966415405
     Saved: ~
 Window Geometry:
   Displays:

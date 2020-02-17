@@ -106,17 +106,17 @@ int main(int argc, char** argv) {
 	ros::Duration(1.0).sleep();  // Wait for ApplyPlanningScene service
 	moveit::planning_interface::PlanningSceneInterface psi;
 	ros::NodeHandle pnh("~");
-	if (pnh.param("spawn_table", true)){
-		spawnObject(psi, createTable());
-		spawnObject(psi, createTable(2)); // <==== new
-	}
-	spawnObject(psi, createObject());
+	// if (pnh.param("spawn_table", true)){
+	// 	spawnObject(psi, createTable());
+	// 	spawnObject(psi, createTable(2)); // <==== new
+	// }
+	// spawnObject(psi, createObject());
 
-	spawnObject(psi, createObject(2)); // <==== new
+	// spawnObject(psi, createObject(2)); // <==== new
 
-	spawnObject(psi, createObject(3)); // <==== new
+	// spawnObject(psi, createObject(3)); // <==== new
 
-	spawnObject(psi, createObject(4)); // <==== new
+	// spawnObject(psi, createObject(4)); // <==== new
 
 	// --------- RUN ---------
 	//load param

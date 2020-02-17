@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /PlanningScene1/Scene Geometry1
         - /TF1/Tree1
-        - /Motion Planning Tasks1
         - /Motion Planning Tasks1/Robot1
         - /Motion Planning Tasks1/Scene1
         - /Motion Planning Tasks1/Tasks1
@@ -35,13 +34,13 @@ Panels:
         - 347
         - 168
       solutions_view_columns:
-        - 57
+        - 100
         - 58
         - 0
       tasks_view_columns:
-        - 217
+        - 216
         - 57
-        - 57
+        - 58
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -76,7 +75,7 @@ Visualization Manager:
       Queue Size: 100
       Value: true
     - Class: moveit_rviz_plugin/PlanningScene
-      Enabled: true
+      Enabled: false
       Move Group Namespace: ""
       Name: PlanningScene
       Planning Scene Topic: /move_group/monitored_planning_scene
@@ -221,7 +220,7 @@ Visualization Manager:
         Robot Alpha: 0.10000000149011612
         Show Robot Collision: false
         Show Robot Visual: true
-      Value: true
+      Value: false
     - Class: rviz/TF
       Enabled: true
       Frame Timeout: 15
@@ -324,7 +323,6 @@ Visualization Manager:
         approach_object: true
         lift_object: true
         lower_object: true
-        retreat: true
       Name: Motion Planning Tasks
       Robot:
         Fixed Robot Color: 150; 50; 150
@@ -470,10 +468,10 @@ Visualization Manager:
         Voxel Coloring: Z-Axis
         Voxel Rendering: Occupied Voxels
       Show Trail: false
-      State Display Time: 0.05 s
+      State Display Time: REALTIME
       Task Solution Topic: /moveit_task_constructor_demo8/solution
       Tasks:
-        pick_place_task: 18
+        pick_place_task: 13
       Trail Step Size: 1
       Value: true
   Enabled: true
@@ -492,7 +490,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 2.6708223819732666
+      Distance: 4.2025909423828125
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -507,10 +505,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.1747971773147583
+      Pitch: 0.31979742646217346
       Target Frame: panda_link0
       Value: XYOrbit (rviz)
-      Yaw: 0.5786152482032776
+      Yaw: 0.8186136484146118
     Saved: ~
 Window Geometry:
   Displays:
