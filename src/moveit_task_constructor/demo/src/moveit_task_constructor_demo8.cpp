@@ -112,7 +112,7 @@ int main(int argc, char** argv) {
 	// }
 	spawnObject(psi, createObject());
 
-	// spawnObject(psi, createObject(2)); // <==== new
+	spawnObject(psi, createObject(2)); // <==== new
 
 	// spawnObject(psi, createObject(3)); // <==== new
 
