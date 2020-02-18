@@ -196,8 +196,8 @@ void PickPlaceTask::init() {
 
 		// c.absolute_x_axis_tolerance= 0.65;
 		// c.absolute_y_axis_tolerance= 0.65;
-		c.absolute_x_axis_tolerance= M_PI/4;
-		c.absolute_y_axis_tolerance= M_PI/4;
+		c.absolute_x_axis_tolerance= M_PI;
+		c.absolute_y_axis_tolerance= M_PI;
 		c.absolute_z_axis_tolerance= M_PI;   //any yaw is fine
 
 		c.weight= 1.0;
@@ -688,7 +688,9 @@ void PickPlaceTask::init() {
 	// ======================= move to pre-pour pose2 ====================================//
 	{
 		auto stage = std::make_unique<stages::Connect>("move to pre-pour pose2", stages::Connect::GroupPlannerVector{{arm2_group_name_, sampling_planner}});//
-		stage->setTimeout(15.0);
+		stage->setTimeout(5.0);
+		// stage->setTimeout(15.0);
+		// stage->setTimeout(30.0);
 		stage->setPathConstraints(upright_constraint);
 		stage->properties().configureInitFrom(Stage::PARENT); // TODO: convenience-wrapper
 		t.add(std::move(stage));

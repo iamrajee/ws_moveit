@@ -31,15 +31,15 @@ Panels:
         column: 1
         order: 1
       solutions_splitter:
-        - 347
-        - 168
+        - 437
+        - 78
       solutions_view_columns:
-        - 100
-        - 58
+        - 57
+        - 0
         - 0
       tasks_view_columns:
-        - 216
-        - 57
+        - 277
+        - 100
         - 58
 Preferences:
   PromptSaveOnExit: true
@@ -95,128 +95,6 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
-          panda1_hand:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda1_leftfinger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda1_link0:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda1_link1:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda1_link2:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda1_link3:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda1_link4:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda1_link5:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda1_link6:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda1_link7:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda1_link8:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          panda1_rightfinger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda2_hand:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda2_leftfinger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda2_link0:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda2_link1:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda2_link2:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda2_link3:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda2_link4:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda2_link5:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda2_link6:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda2_link7:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          panda2_link8:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          panda2_rightfinger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          world:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
         Robot Alpha: 0.10000000149011612
         Show Robot Collision: false
         Show Robot Visual: true
@@ -320,9 +198,6 @@ Visualization Manager:
       Markers:
         All at once?: false
         Value: true
-        approach_object: true
-        lift_object: true
-        lower_object: true
       Name: Motion Planning Tasks
       Robot:
         Fixed Robot Color: 150; 50; 150
@@ -471,7 +346,7 @@ Visualization Manager:
       State Display Time: REALTIME
       Task Solution Topic: /moveit_task_constructor_demo8/solution
       Tasks:
-        pick_place_task: 13
+        pick_place_task: 1
       Trail Step Size: 1
       Value: true
   Enabled: true

@@ -23,7 +23,7 @@ world_frame: "world"
 # Collision object for picking CYLINDER object specifications
 object_name: "cylinder"
 object_dimensions: [0.25, 0.02] # [height, radius]
-object_pose: [-0.5 , -0.5, 0.0, 0, 0, 0]
+object_pose: [0.5 , -0.5, 0.0, 0, 0, 0]
 object_reference_frame: "world"
 
 object2_name: "cylinder2"
@@ -67,8 +67,8 @@ place_surface_offset: 0.0001 # place offset from table
 
 # Valid distance range when approaching an object for picking
 approach_object_min_dist: 0.01
-approach_object_max_dist: 0.05
+approach_object_max_dist: 0.4
 
 # Valid height range when lifting an object after pick
-lift_object_min_dist: 0.2
+lift_object_min_dist: 0.01
 lift_object_max_dist: 0.4

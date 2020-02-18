@@ -132,36 +132,260 @@ void PickPlaceTask::init() {
     // ====================== Current State ====================== //
 	{
 		auto _current_state = std::make_unique<stages::CurrentState>("current state");
+		current_state = _current_state.get();
 		t.add(std::move(_current_state));
 	}
 	// ====================== test container ====================== //
 	{ 
-		// auto test_container = std::make_unique<SerialContainer>("test container");  //worked fine !!
-		// auto test_container = std::make_unique<ParallelContainerBase>("test container"); //gave compiletime error ??
-		// auto test_container = std::make_unique<Alternatives>("test container"); //gave runtime error ??
-		// auto test_container = std::make_unique<Fallbacks>("test container"); //gave runtime error ??
-		auto test_container = std::make_unique<Merger>("test container");//gave runtime error ??
+		// auto test_container = std::make_unique<SerialContainer>("test container"); //calculate and run both serially
+		auto test_container = std::make_unique<Alternatives>("test container"); //calculate both and possible run both seperatly 
+		// auto test_container = std::make_unique<Fallbacks>("test container"); //calculate and run either of
+		// auto test_container = std::make_unique<Merger>("test container");//calculate and run both same time
 
-		// ====================== Move to Home ====================== //
-		{
-			auto stage = std::make_unique<stages::MoveTo>("move home", sampling_planner);
-			stage->setGroup(arm_group_name_);
-			stage->setGoal(arm_home_pose_);
-			stage->restrictDirection(stages::MoveTo::FORWARD);
-			test_container->insert(std::move(stage));
+		t.properties().exposeTo(test_container->properties(), { "eef", "hand", "group", "ik_frame","eef2", "hand2", "group2", "ik_frame2" });
+		test_container->properties().configureInitFrom(Stage::PARENT, { "eef", "hand", "group", "ik_frame","eef2", "hand2", "group2", "ik_frame2" });
+
+		{ 
+			auto test_container2 = std::make_unique<SerialContainer>("test container2");  //worked fine !!
+
+			test_container->properties().exposeTo(test_container2->properties(), { "eef", "hand", "group", "ik_frame","eef2", "hand2", "group2", "ik_frame2" });
+			test_container2->properties().configureInitFrom(Stage::PARENT, { "eef", "hand", "group", "ik_frame","eef2", "hand2", "group2", "ik_frame2" });
+
+			// ====================== Move to Home ====================== //
+			{
+				auto stage = std::make_unique<stages::MoveTo>("move home", sampling_planner);
+				stage->setGroup(arm_group_name_);
+				stage->setGoal(arm_home_pose_);
+				stage->restrictDirection(stages::MoveTo::FORWARD);
+				test_container2->insert(std::move(stage));
+			}
+
+			// ====================== Open Hand ====================== //
+			{
+				auto stage = std::make_unique<stages::MoveTo>("open hand", sampling_planner);
+				stage->setGroup(hand_group_name_);
+				stage->setGoal(hand_open_pose_);
+				stage->restrictDirection(stages::MoveTo::FORWARD);
+				// t.add(std::move(stage));
+				test_container2->insert(std::move(stage));
+			}
+			// ====================== Move to Pick ====================== //
+			{
+				auto stage = std::make_unique<stages::Connect>("move to pick", stages::Connect::GroupPlannerVector{ { arm_group_name_, sampling_planner } });
+				stage->setTimeout(5.0);
+				stage->properties().configureInitFrom(Stage::PARENT);
+				// t.add(std::move(stage));
+				test_container2->insert(std::move(stage));
+			}
+			attach_object_stage = nullptr;
+    		// ====================== Pick Object ====================== //
+			{ 
+				auto grasp = std::make_unique<SerialContainer>("pick object"); //container in which below stages with be inserted
+	
+				test_container2->properties().exposeTo(grasp->properties(), { "eef", "hand", "group", "ik_frame","eef2", "hand2", "group2", "ik_frame2" });
+				grasp->properties().configureInitFrom(Stage::PARENT, { "eef", "hand", "group", "ik_frame","eef2", "hand2", "group2", "ik_frame2" });
+	
+    		    // ---------------------- Approach Object ---------------------- //
+				{
+					auto stage = std::make_unique<stages::MoveRelative>("approach object", cartesian_planner);
+					stage->properties().set("marker_ns", "approach_object");
+					stage->properties().set("link", hand_frame_);
+					stage->properties().configureInitFrom(Stage::PARENT, { "group" });
+					stage->setMinMaxDistance(approach_object_min_dist_, approach_object_max_dist_);
+					// Set hand forward direction
+					geometry_msgs::Vector3Stamped vec;
+					vec.header.frame_id = hand_frame_;
+					vec.vector.z = 1.0;
+					stage->setDirection(vec);
+					grasp->insert(std::move(stage));
+				}
+	
+    		    // ---------------------- Generate Grasp Pose ---------------------- //
+				{
+					// Sample grasp pose
+					auto stage = std::make_unique<stages::GenerateGraspPose>("generate grasp pose");
+					stage->properties().configureInitFrom(Stage::PARENT);
+					stage->properties().set("marker_ns", "grasp_pose");
+					stage->setPreGraspPose(hand_open_pose_);
+					stage->setObject(object);
+					stage->setAngleDelta(M_PI / 24);
+					stage->setMonitoredStage(current_state);  // Hook into current state
+					// Compute IK
+					auto wrapper = std::make_unique<stages::ComputeIK>("grasp pose IK", std::move(stage));
+					wrapper->setMaxIKSolutions(8);
+					wrapper->setMinSolutionDistance(1.0);
+					wrapper->setIKFrame(grasp_frame_transform_, hand_frame_);
+					wrapper->properties().configureInitFrom(Stage::PARENT, { "eef", "group" });
+					wrapper->properties().configureInitFrom(Stage::INTERFACE, { "target_pose" });
+					grasp->insert(std::move(wrapper));
+				}
+	
+    		    // ---------------------- Allow Collision (hand object) ---------------------- //
+				{
+					auto stage = std::make_unique<stages::ModifyPlanningScene>("allow collision (hand,object)");
+					stage->allowCollisions(object, t.getRobotModel()->getJointModelGroup(hand_group_name_)->getLinkModelNamesWithCollisionGeometry(),true);
+					grasp->insert(std::move(stage));
+				}
+	
+    		    // ---------------------- Close Hand ---------------------- //
+				{
+					auto stage = std::make_unique<stages::MoveTo>("close hand", sampling_planner);
+					// stage->properties().property("hand").configureInitFrom(Stage::PARENT, hand_group_name_); 														//"group" => "hand"
+					// stage->properties().configureInitFrom(Stage::PARENT, { "group" });
+					stage->setGroup(hand_group_name_);
+					stage->setGoal(hand_close_pose_);
+					grasp->insert(std::move(stage));
+				}
+	
+    		    // ---------------------- Attach Object ---------------------- //
+				{
+					auto stage = std::make_unique<stages::ModifyPlanningScene>("attach object");
+					stage->attachObject(object, hand_frame_);
+					attach_object_stage = stage.get();
+					grasp->insert(std::move(stage));
+				}
+	
+    		    // ---------------------- Allow collision (object support) ---------------------- //
+				{
+					auto stage = std::make_unique<stages::ModifyPlanningScene>("allow collision (object,support)");
+					stage->allowCollisions({ object }, support_surfaces_, true);
+					grasp->insert(std::move(stage));
+				}
+	
+    		    // ---------------------- Lift object ---------------------- //
+				{
+					auto stage = std::make_unique<stages::MoveRelative>("lift object", cartesian_planner);
+					stage->properties().configureInitFrom(Stage::PARENT, { "group" });
+					stage->setMinMaxDistance(lift_object_min_dist_, lift_object_max_dist_);
+					stage->setIKFrame(hand_frame_);
+					stage->properties().set("marker_ns", "lift_object");
+					// Set upward direction
+					geometry_msgs::Vector3Stamped vec;
+					vec.header.frame_id = world_frame_;
+					vec.vector.z = 1.0;
+					stage->setDirection(vec);
+					grasp->insert(std::move(stage));
+				}
+	
+    		    // ---------------------- Forbid collision (object support) ---------------------- //
+				{
+					auto stage = std::make_unique<stages::ModifyPlanningScene>("forbid collision (object,surface)");
+					stage->allowCollisions({ object }, support_surfaces_, false);
+					grasp->insert(std::move(stage));
+				}
+	
+				// Add grasp container to task
+				// test_container2.add(std::move(grasp));
+				test_container2->insert(std::move(grasp));
+			}
+
+			test_container->insert(std::move(test_container2));
 		}
-		// ====================== Move to Home 2 ====================== //
-		{
-			auto stage = std::make_unique<stages::MoveTo>("move home2", sampling_planner);
-			stage->setGroup(arm2_group_name_);
-			stage->setGoal(arm2_home_pose_);
-			stage->restrictDirection(stages::MoveTo::FORWARD);
-			test_container->insert(std::move(stage));
+
+		{ 
+			auto test_container2 = std::make_unique<SerialContainer>("test container2");  //worked fine !!
+			// ====================== Move to Home 2 ====================== //
+			{
+				auto stage = std::make_unique<stages::MoveTo>("move home2", sampling_planner);
+				stage->setGroup(arm2_group_name_);
+				stage->setGoal(arm2_home_pose_);
+				stage->restrictDirection(stages::MoveTo::FORWARD);
+				test_container2->insert(std::move(stage));
+			}
+
+			// ====================== Open Hand ====================== //
+			{
+				auto stage = std::make_unique<stages::MoveTo>("open hand2", sampling_planner);
+				stage->setGroup(hand2_group_name_);
+				stage->setGoal(hand2_open_pose_);
+				stage->restrictDirection(stages::MoveTo::FORWARD);
+				// t.add(std::move(stage));
+				test_container2->insert(std::move(stage));
+			}
+			test_container->insert(std::move(test_container2));
 		}
+
 		t.add(std::move(test_container));
 	}
 
+	// // ====================== test container ====================== //
+	// { 
+	// 	// auto test_container = std::make_unique<SerialContainer>("test container"); //calculate and run both serially
+	// 	// auto test_container = std::make_unique<Alternatives>("test container"); //calculate both and possible run both seperatly 
+	// 	auto test_container = std::make_unique<Fallbacks>("test container"); //calculate and run either of
+	// 	// auto test_container = std::make_unique<Merger>("test container");//calculate and run both same time
 
+	// 	// ====================== Move to Home ====================== //
+	// 	{
+	// 		auto stage = std::make_unique<stages::MoveTo>("move home", sampling_planner);
+	// 		stage->setGroup(arm_group_name_);
+	// 		stage->setGoal(arm_home_pose_);
+	// 		stage->restrictDirection(stages::MoveTo::FORWARD);
+	// 		test_container->insert(std::move(stage));
+	// 	}
+
+	// 	// // ====================== Open Hand ====================== //
+	// 	// {
+	// 	// 	auto stage = std::make_unique<stages::MoveTo>("open hand", sampling_planner);
+	// 	// 	stage->setGroup(hand_group_name_);
+	// 	// 	stage->setGoal(hand_open_pose_);
+	// 	// 	stage->restrictDirection(stages::MoveTo::FORWARD);
+	// 	// 	// t.add(std::move(stage));
+	// 	// 	test_container->insert(std::move(stage));
+	// 	// }
+
+	// 	// ====================== Move to Home 2 ====================== //
+	// 	{
+	// 		auto stage = std::make_unique<stages::MoveTo>("move home2", sampling_planner);
+	// 		stage->setGroup(arm2_group_name_);
+	// 		stage->setGoal(arm2_home_pose_);
+	// 		stage->restrictDirection(stages::MoveTo::FORWARD);
+	// 		test_container->insert(std::move(stage));
+	// 	}
+
+	// 	// // ====================== Open Hand 2 ====================== //
+	// 	// {
+	// 	// 	auto stage = std::make_unique<stages::MoveTo>("open hand2", sampling_planner);
+	// 	// 	stage->setGroup(hand2_group_name_);
+	// 	// 	stage->setGoal(hand2_open_pose_);
+	// 	// 	stage->restrictDirection(stages::MoveTo::FORWARD);
+	// 	// 	// t.add(std::move(stage));
+	// 	// 	test_container->insert(std::move(stage));
+	// 	// }
+
+	// 	t.add(std::move(test_container)); //t is task
+	// }
+
+    // ====================== test container ====================== //
+	// { 
+	// 	// auto test_container = std::make_unique<SerialContainer>("test container");  //worked fine !!
+	// 	// auto test_container = std::make_unique<ParallelContainerBase>("test container"); //gave compiletime error ??
+	// 	// auto test_container = std::make_unique<Alternatives>("test container"); //gave runtime error ??
+	// 	auto test_container = std::make_unique<Fallbacks>("test container"); //gave runtime error ??
+	// 	// auto test_container = std::make_unique<Merger>("test container");//gave runtime error ??
+
+	// 	// ====================== Open Hand ====================== //
+	// 	{
+	// 		auto stage = std::make_unique<stages::MoveTo>("open hand", sampling_planner);
+	// 		stage->setGroup(hand_group_name_);
+	// 		stage->setGoal(hand_open_pose_);
+	// 		stage->restrictDirection(stages::MoveTo::FORWARD);
+	// 		// t.add(std::move(stage));
+	// 		test_container->insert(std::move(stage));
+	// 	}
+
+	// 	// ====================== Open Hand ====================== //
+	// 	{
+	// 		auto stage = std::make_unique<stages::MoveTo>("open hand2", sampling_planner);
+	// 		stage->setGroup(hand2_group_name_);
+	// 		stage->setGoal(hand2_open_pose_);
+	// 		stage->restrictDirection(stages::MoveTo::FORWARD);
+	// 		// t.add(std::move(stage));
+	// 		test_container->insert(std::move(stage));
+	// 	}
+
+	// 	t.add(std::move(test_container)); //t is task
+	// }
 
 
 	// /*
