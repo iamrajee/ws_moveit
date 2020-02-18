@@ -784,7 +784,8 @@ void PickPlaceTask::init() {
 		// stage->properties().property("ik_frame").configureInitFrom(Stage::PARENT, "ik_frame2");//
 		// stage->properties().property("hand").configureInitFrom(Stage::PARENT, "hand2");//
 		// stage->setPathConstraints(upright_constraint);
-		stage->setTimeout(15.0);
+		stage->setTimeout(5.0);
+		// stage->setTimeout(15.0);
 		// stage->properties().configureInitFrom(Stage::PARENT);
 		t.add(std::move(stage));
 	}
