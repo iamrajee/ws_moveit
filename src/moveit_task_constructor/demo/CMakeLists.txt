@@ -24,8 +24,17 @@ include_directories(
 add_executable(cartesian src/cartesian.cpp)
 target_link_libraries(cartesian ${catkin_LIBRARIES})
 
+add_executable(cartesian2 src/cartesian2.cpp)
+target_link_libraries(cartesian2 ${catkin_LIBRARIES})
+
+add_executable(cartesian3 src/cartesian3.cpp)
+target_link_libraries(cartesian3 ${catkin_LIBRARIES})
+
 add_executable(modular src/modular.cpp)
 target_link_libraries(modular ${catkin_LIBRARIES})
+
+add_executable(modular2 src/modular2.cpp)
+target_link_libraries(modular2 ${catkin_LIBRARIES})
 
 add_library(${PROJECT_NAME}_lib src/pick_place_task.cpp)                                                       # <= why not directly change here
 set_target_properties(${PROJECT_NAME}_lib PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place)      # <= useless??
@@ -74,6 +83,15 @@ add_dependencies(${PROJECT_NAME}_lib11 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${cat
 add_library(${PROJECT_NAME}_lib12 src/pick_place_task12.cpp)
 set_target_properties(${PROJECT_NAME}_lib12 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place12)
 add_dependencies(${PROJECT_NAME}_lib12 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_library(${PROJECT_NAME}_lib13 src/pick_place_task13.cpp)
+set_target_properties(${PROJECT_NAME}_lib13 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place13)
+add_dependencies(${PROJECT_NAME}_lib13 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_library(${PROJECT_NAME}_lib14 src/pick_place_task14.cpp)
+set_target_properties(${PROJECT_NAME}_lib14 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place14)
+add_dependencies(${PROJECT_NAME}_lib14 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 
 
 
@@ -141,6 +159,16 @@ target_link_libraries(${PROJECT_NAME}_demo12 ${PROJECT_NAME}_lib12 ${catkin_LIBR
 set_target_properties(${PROJECT_NAME}_demo12 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo12)
 add_dependencies(${PROJECT_NAME}_demo12 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+add_executable(${PROJECT_NAME}_demo13 src/moveit_task_constructor_demo13.cpp)
+target_link_libraries(${PROJECT_NAME}_demo13 ${PROJECT_NAME}_lib13 ${catkin_LIBRARIES})              # <= important lib13 !!!
+set_target_properties(${PROJECT_NAME}_demo13 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo13)
+add_dependencies(${PROJECT_NAME}_demo13 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(${PROJECT_NAME}_demo14 src/moveit_task_constructor_demo14.cpp)
+target_link_libraries(${PROJECT_NAME}_demo14 ${PROJECT_NAME}_lib14 ${catkin_LIBRARIES})              # <= important lib14 !!!
+set_target_properties(${PROJECT_NAME}_demo14 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo14)
+add_dependencies(${PROJECT_NAME}_demo14 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 
 install(TARGETS ${PROJECT_NAME}_lib ${PROJECT_NAME}_demo
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
@@ -198,6 +226,16 @@ install(TARGETS ${PROJECT_NAME}_lib11 ${PROJECT_NAME}_demo11
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 install(TARGETS ${PROJECT_NAME}_lib12 ${PROJECT_NAME}_demo12
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+install(TARGETS ${PROJECT_NAME}_lib13 ${PROJECT_NAME}_demo13
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+install(TARGETS ${PROJECT_NAME}_lib14 ${PROJECT_NAME}_demo14
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

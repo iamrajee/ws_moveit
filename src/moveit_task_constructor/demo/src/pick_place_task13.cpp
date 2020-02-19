@@ -1,4 +1,4 @@
-#include <moveit_task_constructor_demo/pick_place_task8.h>
+#include <moveit_task_constructor_demo/pick_place_task14.h>
 #include <rosparam_shortcuts/rosparam_shortcuts.h>
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
@@ -140,7 +140,7 @@ void PickPlaceTask::init() {
 
 
 
-	/* // <====== comment
+	// /* // <====== comment
 	// ====================== test container ====================== //
 	{ 
 		// auto test_container = std::make_unique<SerialContainer>("test container"); //calculate and run both serially
@@ -697,10 +697,10 @@ void PickPlaceTask::init() {
 		t.add(std::move(test_container));
 	}
 
-	*/ // <====== comment
+	// */ // <====== comment
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Merger example ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
-	// /* // <====== comment
+	/* // <====== comment
 	
 	// ====================== test container ====================== //
 	{ 
@@ -761,7 +761,7 @@ void PickPlaceTask::init() {
 	}
 
 
-	// */ // <====== comment
+	*/ // <====== comment
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
 
 }
