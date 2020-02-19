@@ -6,8 +6,9 @@ Developed by Henning Kayser & Simon Goldstein at [PickNik Consulting](http://pic
 
 ## Run
 
-===================== Run demo ========================================
+*************************************** Run demo ***************************************
 
+======================================== PickPlace ========================================
 Default by MTC
     roslaunch moveit_task_constructor_demo demo.launch
     roslaunch moveit_task_constructor_demo pickplace.launch
@@ -26,7 +27,7 @@ Default by MTC
  
 7 - serial two_panda
 
-8 - Parallelising two_panda
+8 - Parallelising two_panda simple (Merger)
 
 9 - panda single arm pouring
 
@@ -35,3 +36,30 @@ Default by MTC
 11 - two_panda arm pouring, glass on hight, arm sysmetric about origin
 
 12 - two_panda arm pouring(cleaned)
+
+13 - two_panda arm pickplace for differnt object
+
+14 - two_panda arm pickplace for using differnt arm for same object
+
+======================================== Cartesian ========================================
+Default by MTC
+    roslaunch moveit_task_constructor_demo demo.launch
+    rosrun moveit_task_constructor_demo cartesian
+
+2. formating
+
+3. two task with differnt node name
+
+=>  roslaunch moveit_task_constructor_demo demo.launch
+    rosrun moveit_task_constructor_demo cartesian2
+    rosrun moveit_task_constructor_demo cartesian3
+
+
+
+======================================== Modular ========================================
+Default by MTC
+    roslaunch moveit_task_constructor_demo demo.launch
+    rosrun moveit_task_constructor_demo modular
+
+2. formating
+=========================================================================================
