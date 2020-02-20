@@ -1,3 +1,32 @@
+// ROS
+#include <ros/ros.h>
+// MoveIt
+#include <moveit/planning_scene/planning_scene.h>
+#include <moveit/robot_model/robot_model.h>
+#include <moveit/planning_scene_interface/planning_scene_interface.h>
+// MTC
+#include <moveit/task_constructor/task.h>
+#include <moveit/task_constructor/stages/compute_ik.h>
+#include <moveit/task_constructor/stages/connect.h>
+#include <moveit/task_constructor/stages/current_state.h>
+#include <moveit/task_constructor/stages/generate_grasp_pose.h>
+#include <moveit/task_constructor/stages/generate_pose.h>
+#include <moveit/task_constructor/stages/generate_place_pose.h>
+#include <moveit/task_constructor/stages/modify_planning_scene.h>
+#include <moveit/task_constructor/stages/move_relative.h>
+#include <moveit/task_constructor/stages/move_to.h>
+#include <moveit/task_constructor/stages/predicate_filter.h>
+#include <moveit/task_constructor/solvers/cartesian_path.h>
+#include <moveit/task_constructor/solvers/pipeline_planner.h>
+#include <moveit_task_constructor_msgs/ExecuteTaskSolutionAction.h>
+
+#include <actionlib/client/simple_action_client.h>
+#include <actionlib/server/simple_action_server.h>
+#include <eigen_conversions/eigen_msg.h>
+
+
+
+
 /* Inspired from work from Dr. Robert Haschke */
 
 #include <ros/ros.h>
@@ -12,11 +41,29 @@
 
 #include <string.h>
 
+#include <moveit_task_constructor_msgs/ExecuteTaskSolutionAction.h> //<======== new
+#include <actionlib/client/simple_action_client.h>
+#include <actionlib/server/simple_action_server.h>
+
+#include <moveit_task_constructor_demo/pick_place_task12.h>
+
+// actionlib::SimpleActionClient<moveit_task_constructor_msgs::ExecuteTaskSolutionAction> execute_;
+// actionlib::SimpleActionClient<moveit_task_constructor_msgs::ExecuteTaskSolutionAction> execute_(); //execute_("execute_task_solution", true)
+// actionlib::SimpleActionClient<moveit_task_constructor_msgs::ExecuteTaskSolutionAction> execute_("execute_task_solution", true);
+
+// PickPlaceTask::PickPlaceTask(const std::string& task_name, const ros::NodeHandle& nh) : nh_(nh), task_name_(task_name), execute_("execute_task_solution", true) {}
+
 using namespace moveit::task_constructor;
 
-Task createTask(std::string s) {
-	Task t;
+constexpr char LOGNAME[] = "cartisian_task_logname"; //<======== new
+
+Task createTask(std::string s, double d) {
+	Task t(s);
+	// Task t(const std::string& id = "1");
 	// t.stages()->setName("Cartesian Path");
+	// t.id(s);
+	// t.id = s;
+	// t.id() = s;
     t.stages()->setName(s);
 
 	const std::string group = "panda_arm";
@@ -51,7 +98,8 @@ Task createTask(std::string s) {
 		stage->setGroup(group);
 		geometry_msgs::Vector3Stamped direction;
 		direction.header.frame_id = "world";
-		direction.vector.y = 0.2;
+		// direction.vector.y = 0.2;
+		direction.vector.y = d;
 		stage->setDirection(direction);
 		t.add(std::move(stage));
 	}
@@ -94,28 +142,40 @@ Task createTask(std::string s) {
 	return t;
 }
 
+bool task_execute(const moveit::task_constructor::Task&);
+
 int main(int argc, char** argv) {
 	ros::init(argc, argv, "mtc_tutorial3");
 	// run an asynchronous spinner to communicate with the move_group node and rviz
 	ros::AsyncSpinner spinner(1);
 	spinner.start();
-    Task t,t2;
+    Task t;
+	Task t2;
+	// t.id("1");
+	// t2.id() = "1";
+	// Task t2(const std::string& id = "1");
+	
     std::string s;
 
-    // s = "Cartesian Path";
-	// t = createTask(s);
-	// try {
-	// 	if (t.plan()){
-    //         // t.enableIntrospection();
-	// 		t.introspection().publishSolution(*t.solutions().front());
-    //         // t.introspection().publishSolution(*t.solutions().top());
-    //     }
-	// } catch (const InitStageException& ex) {
-	// 	std::cerr << "planning failed with exception" << std::endl << ex << t;
-	// }
+    s = "Cartesian Path";
+	t = createTask(s,0.2);
+	// t.id() = s;
+	std::cout<<"t.id()="<<t.id()<<"\n";
+	try {
+		if (t.plan()){
+            // t.enableIntrospection();
+			t.introspection().publishSolution(*t.solutions().front());
+			// task_execute(t);
+            // t.introspection().publishSolution(*t.solutions().top());
+        }
+	} catch (const InitStageException& ex) {
+		std::cerr << "planning failed with exception" << std::endl << ex << t;
+	}
 
     s = "Cartesian Path2";
-	t2 = createTask(s);
+	t2 = createTask(s,-0.2);
+	// t2.id() = s;
+	std::cout<<"t2.id()="<<t2.id()<<"\n";
 	try {
 		if (t2.plan()){
             // t2.enableIntrospection();
@@ -129,4 +189,28 @@ int main(int argc, char** argv) {
     printf("Press ctrl+C to close.\n");
 	ros::waitForShutdown();  // keep alive for interactive inspection in rviz
 	return 0;
+}
+
+// bool task_execute(Task task_) {
+bool task_execute(const moveit::task_constructor::Task& task_) {
+	ROS_INFO_NAMED(LOGNAME, "Executing solution trajectory");
+	moveit_task_constructor_msgs::ExecuteTaskSolutionGoal execute_goal;
+	task_.solutions().front()->fillMessage(execute_goal.solution);
+	// execute_.sendGoal(execute_goal);
+	// execute_.waitForResult();
+	// moveit_msgs::MoveItErrorCodes execute_result = execute_.getResult()->error_code;
+
+	ac.sendGoal(execute_goal); 	// move_action_client_
+	ac.waitForResult();
+	moveit_msgs::MoveItErrorCodes execute_result = ac.getResult()->error_code;
+
+	if (execute_result.val != moveit_msgs::MoveItErrorCodes::SUCCESS) {
+		// ROS_ERROR_STREAM_NAMED(LOGNAME, "Task execution failed and returned: " << execute_.getState().toString());
+		ROS_ERROR_STREAM_NAMED(LOGNAME, "Task execution failed and returned: " << ac.getState().toString());
+		return false;
+	}else{
+		ROS_INFO_NAMED(LOGNAME, "Task execution completed!");
+	}
+
+	return true;
 }

@@ -175,33 +175,70 @@ void PickPlaceTask::init() {
 	
 
 	// ======================= Constraints : don't spill liquid ====================================//
-	moveit_msgs::Constraints upright_constraint;
-	upright_constraint.name = "panda_hand_constraints";
-	upright_constraint.orientation_constraints.resize(1);
+	moveit_msgs::Constraints upright_constraint_panda1_hand;
+	upright_constraint_panda1_hand.name = "panda1_hand_constraints";
+	upright_constraint_panda1_hand.orientation_constraints.resize(1);
 	{
-		moveit_msgs::OrientationConstraint& c= upright_constraint.orientation_constraints[0];
-		c.link_name= "panda2_hand";   //constraining tool frame
-		//0 0 0.10 1.571 -1.571 1.571 //panda_hand -> panda_end(same as world)
-		// c.link_name= "panda_end"; //not found
-		// c.link_name= "bottle";
-		// c.link_name= "panda_leftfinger";
-		c.header.frame_id= "world"; //reference frame
-		// c.orientation.w= 1.0;
-
-		//equalavent to rpy= -pi, pi/2, 0
-		c.orientation.w= 0;
-		c.orientation.x= -0.707;
-		c.orientation.y= 0;
-		c.orientation.z= -0.707;
+		moveit_msgs::OrientationConstraint& c= upright_constraint_panda1_hand.orientation_constraints[0];
+		c.link_name= "panda1_hand";   //constraining tool frame
+		c.header.frame_id= "panda_constraint_frame"; //reference frame
+		c.orientation.w= 1.0;
 
 		// c.absolute_x_axis_tolerance= 0.65;
-		// c.absolute_y_axis_tolerance= 0.65;
+		c.absolute_y_axis_tolerance= 0.65;
+		c.absolute_z_axis_tolerance= 0.65;
 		c.absolute_x_axis_tolerance= M_PI;
-		c.absolute_y_axis_tolerance= M_PI;
-		c.absolute_z_axis_tolerance= M_PI;   //any yaw is fine
+		// c.absolute_y_axis_tolerance= M_PI;
+		// c.absolute_z_axis_tolerance= M_PI;
 
 		c.weight= 1.0;
 	}
+
+	moveit_msgs::Constraints upright_constraint_panda2_hand;
+	upright_constraint_panda2_hand.name = "panda2_hand_constraints";
+	upright_constraint_panda2_hand.orientation_constraints.resize(1);
+	{
+		moveit_msgs::OrientationConstraint& c= upright_constraint_panda2_hand.orientation_constraints[0];
+		c.link_name= "panda2_hand";   //constraining tool frame
+		c.header.frame_id= "panda_constraint_frame"; //reference frame
+		c.orientation.w= 1.0;
+
+		// c.absolute_x_axis_tolerance= 0.65;
+		c.absolute_y_axis_tolerance= 0.65;
+		c.absolute_z_axis_tolerance= 0.65;
+		c.absolute_x_axis_tolerance= M_PI;
+		// c.absolute_y_axis_tolerance= M_PI;
+		// c.absolute_z_axis_tolerance= M_PI;
+
+		c.weight= 1.0;
+	}
+
+	
+
+	// {
+	// 	moveit_msgs::OrientationConstraint& c= upright_constraint.orientation_constraints[0];
+	// 	c.link_name= "panda2_hand";   //constraining tool frame
+	// 	//0 0 0.10 1.571 -1.571 1.571 //panda_hand -> panda_end(same as world)
+	// 	// c.link_name= "panda_end"; //not found
+	// 	// c.link_name= "bottle";
+	// 	// c.link_name= "panda_leftfinger";
+	// 	c.header.frame_id= "world"; //reference frame
+	// 	// c.orientation.w= 1.0;
+
+	// 	//equalavent to rpy= -pi, pi/2, 0
+	// 	c.orientation.w= 0;
+	// 	c.orientation.x= -0.707;
+	// 	c.orientation.y= 0;
+	// 	c.orientation.z= -0.707;
+
+	// 	// c.absolute_x_axis_tolerance= 0.65;
+	// 	// c.absolute_y_axis_tolerance= 0.65;
+	// 	c.absolute_x_axis_tolerance= M_PI;
+	// 	c.absolute_y_axis_tolerance= M_PI;
+	// 	c.absolute_z_axis_tolerance= M_PI;   //any yaw is fine
+
+	// 	c.weight= 1.0;
+	// }
 
 	Stage* current_state = nullptr;           //Forward current_state on to grasp pose generator
 	Stage* current_state0 = nullptr;	
@@ -360,7 +397,7 @@ void PickPlaceTask::init() {
 	{
 		auto stage = std::make_unique<stages::Connect>("move to pre-pour pose", stages::Connect::GroupPlannerVector{{arm_group_name_, sampling_planner}});
 		stage->setTimeout(15.0);
-		// stage->setPathConstraints(upright_constraint);
+		// stage->setPathConstraints(upright_constraint_panda1_hand);
 		stage->properties().configureInitFrom(Stage::PARENT); // TODO: convenience-wrapper
 		t.add(std::move(stage));
 	}
@@ -423,6 +460,7 @@ void PickPlaceTask::init() {
 		auto stage = std::make_unique<stages::Connect>( "move to place", stages::Connect::GroupPlannerVector{{arm_group_name_, sampling_planner}} );
 		stage->setTimeout(5.0);
 		stage->properties().configureInitFrom(Stage::PARENT);
+		stage->setPathConstraints(upright_constraint_panda1_hand);
 		t.add(std::move(stage));
 	}
 	
@@ -691,7 +729,7 @@ void PickPlaceTask::init() {
 		stage->setTimeout(5.0);
 		// stage->setTimeout(15.0);
 		// stage->setTimeout(30.0);
-		stage->setPathConstraints(upright_constraint);
+		stage->setPathConstraints(upright_constraint_panda2_hand);
 		stage->properties().configureInitFrom(Stage::PARENT); // TODO: convenience-wrapper
 		t.add(std::move(stage));
 	}
@@ -785,7 +823,7 @@ void PickPlaceTask::init() {
 		// stage->properties().property("eef").configureInitFrom(Stage::PARENT, "eef2");//
 		// stage->properties().property("ik_frame").configureInitFrom(Stage::PARENT, "ik_frame2");//
 		// stage->properties().property("hand").configureInitFrom(Stage::PARENT, "hand2");//
-		// stage->setPathConstraints(upright_constraint);
+		stage->setPathConstraints(upright_constraint_panda2_hand);
 		stage->setTimeout(5.0);
 		// stage->setTimeout(15.0);
 		// stage->properties().configureInitFrom(Stage::PARENT);

@@ -40,4 +40,6 @@
     <rosparam command="load" file="$(find two_panda_moveit_config)/config/kinematics.yaml"/>
   </node>
 
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(anon virtual_joint_broadcaster2)" args="0 0 0 -3.1416 -1.5708 0 world panda_constraint_frame" /> <!-- ZYX -->
+
 </launch>

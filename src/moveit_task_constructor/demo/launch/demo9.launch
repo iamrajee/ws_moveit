@@ -41,6 +41,8 @@
                                                                                                         <!-- x y z y(z') p(y') r(x') -->
   <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="$(anon virtual_joint_broadcaster2)" args="0 0 0.11 1.571 0 0 panda_hand panda_endZ" /> -->
   <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="$(anon virtual_joint_broadcaster6)" args="0 0 0.22 1.571 -1.571 0 panda_hand panda_endZY" /> -->
-  <node pkg="tf2_ros" type="static_transform_publisher" name="$(anon virtual_joint_broadcaster11)" args="0 0 0.10 1.571 -1.571 1.571 panda_hand panda_end" /> <!-- ZYX -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(anon virtual_joint_broadcaster1)" args="0 0 0.10 1.571 -1.571 1.571 panda_hand panda_end" /> <!-- ZYX -->
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(anon virtual_joint_broadcaster2)" args="0 0 0 -1.571 1.571 -1.571 world panda_constraint_frame" /> <!-- ZYX -->
 
 </launch>

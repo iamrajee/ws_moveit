@@ -155,6 +155,7 @@ panda1_arm:
     - SPARStwo
   projection_evaluator: joints(panda1_joint1,panda1_joint2)
   longest_valid_segment_fraction: 0.005
+  enforce_joint_model_state_space: true #added new
 hand1:
   default_planner_config: ""
   planner_configs:
@@ -211,6 +212,7 @@ panda2_arm:
     - SPARStwo
   projection_evaluator: joints(panda2_joint1,panda2_joint2)
   longest_valid_segment_fraction: 0.005
+  enforce_joint_model_state_space: true #added new
 hand2:
   default_planner_config: ""
   planner_configs:

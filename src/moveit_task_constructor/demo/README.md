@@ -63,3 +63,4 @@ Default by MTC
 
 2. formating
 =========================================================================================
+Added "enforce_joint_model_state_space: true #added newenforce_joint_model_state_space: true #added new" in /home/rajendra/ws_moveit/src/two_panda_moveit_config/config/ompl_planning.yaml
