@@ -45,7 +45,7 @@
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/server/simple_action_server.h>
 
-#include <moveit_task_constructor_demo/pick_place_task12.h>
+// #include <moveit_task_constructor_demo/pick_place_task12.h>
 
 // actionlib::SimpleActionClient<moveit_task_constructor_msgs::ExecuteTaskSolutionAction> execute_;
 // actionlib::SimpleActionClient<moveit_task_constructor_msgs::ExecuteTaskSolutionAction> execute_(); //execute_("execute_task_solution", true)
@@ -56,6 +56,9 @@
 using namespace moveit::task_constructor;
 
 constexpr char LOGNAME[] = "cartisian_task_logname"; //<======== new
+
+// ros::init(argc, argv, "mtc_tutorial3");
+// ros::init("mtc_tutorial3");
 
 Task createTask(std::string s, double d) {
 	Task t(s);
@@ -142,12 +145,92 @@ Task createTask(std::string s, double d) {
 	return t;
 }
 
-bool task_execute(const moveit::task_constructor::Task&);
+Task createTask2(std::string s, double d) {
+	Task t(s);
+    t.stages()->setName(s);
+	const std::string group = "panda_arm";
+	auto cartesian = std::make_shared<solvers::CartesianPath>();
+	auto sampling_planner = std::make_shared<solvers::PipelinePlanner>();
+	
+	t.loadRobotModel();
+	auto scene = std::make_shared<planning_scene::PlanningScene>(t.getRobotModel());
+	{
+		auto& state = scene->getCurrentStateNonConst();
+		state.setToDefaultValues(state.getJointModelGroup(group), "ready");
+		auto fixed = std::make_unique<stages::FixedState>("initial state");// start from a fixed robot state
+		fixed->setState(scene);
+		t.add(std::move(fixed));
+	}
+
+	// {
+	// 	auto stage = std::make_unique<stages::MoveRelative>("x +0.3", cartesian);
+	// 	stage->setGroup(group);
+	// 	geometry_msgs::Vector3Stamped direction;
+	// 	direction.header.frame_id = "world";
+	// 	direction.vector.x = 0.3;
+	// 	stage->setDirection(direction);
+	// 	t.add(std::move(stage));
+	// }
+
+
+	// // ====================== Open Hand ====================== //
+	// {
+	// 	auto stage = std::make_unique<stages::MoveTo>("home to ready", cartesian);
+	// 	stage->setGroup("panda_arm");
+	// 	stage->setGoal("ready");
+	// 	t.add(std::move(stage));
+	// }
+
+	// ====================== Open Hand ====================== //
+	{
+		auto stage = std::make_unique<stages::MoveTo>("open hand", sampling_planner);
+		stage->setGroup("hand");
+		stage->setGoal("open");
+		t.add(std::move(stage));
+	}
+
+	return t;
+}
+
+// bool task_execute(const moveit::task_constructor::Task&);
+// actionlib::SimpleActionClient<moveit_task_constructor_msgs::ExecuteTaskSolutionAction> execute_
+
+// bool task_execute(Task task_) {
+bool task_execute(const moveit::task_constructor::Task& task_, actionlib::SimpleActionClient<moveit_task_constructor_msgs::ExecuteTaskSolutionAction>& execute_) {
+	ROS_INFO_NAMED(LOGNAME, "Executing solution trajectory");
+	moveit_task_constructor_msgs::ExecuteTaskSolutionGoal execute_goal;
+	task_.solutions().front()->fillMessage(execute_goal.solution);
+	// execute_.sendGoal(execute_goal);
+	// execute_.waitForResult();
+	// moveit_msgs::MoveItErrorCodes execute_result = execute_.getResult()->error_code;
+	std::cout<<"flag1\n";
+	execute_.sendGoal(execute_goal); 	// move_action_client_
+	std::cout<<"flag2\n";
+	execute_.waitForResult();
+	std::cout<<"flag3\n";
+	moveit_msgs::MoveItErrorCodes execute_result = execute_.getResult()->error_code;
+
+	if (execute_result.val != moveit_msgs::MoveItErrorCodes::SUCCESS) {
+		// ROS_ERROR_STREAM_NAMED(LOGNAME, "Task execution failed and returned: " << execute_.getState().toString());
+		ROS_ERROR_STREAM_NAMED(LOGNAME, "Task execution failed and returned: " << execute_.getState().toString());
+		return false;
+	}else{
+		ROS_INFO_NAMED(LOGNAME, "Task execution completed!");
+	}
+
+	return true;
+}
+
+
 
 int main(int argc, char** argv) {
 	ros::init(argc, argv, "mtc_tutorial3");
+
+	actionlib::SimpleActionClient<moveit_task_constructor_msgs::ExecuteTaskSolutionAction> execute_("execute_task_solution", true);
+
 	// run an asynchronous spinner to communicate with the move_group node and rviz
-	ros::AsyncSpinner spinner(1);
+	// ros::AsyncSpinner spinner(1);
+	ros::AsyncSpinner spinner(2);
 	spinner.start();
     Task t;
 	Task t2;
@@ -157,60 +240,71 @@ int main(int argc, char** argv) {
 	
     std::string s;
 
+	/*
     s = "Cartesian Path";
 	t = createTask(s,0.2);
+	// t = createTask2(s,0.2);
 	// t.id() = s;
 	std::cout<<"t.id()="<<t.id()<<"\n";
 	try {
 		if (t.plan()){
-            // t.enableIntrospection();
-			t.introspection().publishSolution(*t.solutions().front());
-			// task_execute(t);
+            t.enableIntrospection();
+			// t.introspection().publishSolution(*t.solutions().front());
+			// task_execute(t,execute_);
+			// t.execute(*t.solutions().front());
+
+			moveit_msgs::MoveItErrorCodes execute_result = t.execute(*t.solutions().front());
+
+			if (execute_result.val != moveit_msgs::MoveItErrorCodes::SUCCESS) {
+				// ROS_ERROR_STREAM_NAMED(LOGNAME, "Task execution failed and returned: " << execute_.getState().toString());
+				// ROS_ERROR_STREAM_NAMED(LOGNAME, "Task execution failed and returned: " << execute_.getState().toString());
+				ROS_INFO_NAMED(LOGNAME, "Task t execution Failed!");
+				// return false;
+			}else{
+				ROS_INFO_NAMED(LOGNAME, "Task t execution completed!");
+			}
+
             // t.introspection().publishSolution(*t.solutions().top());
         }
 	} catch (const InitStageException& ex) {
 		std::cerr << "planning failed with exception" << std::endl << ex << t;
 	}
-
+	*/
+	
     s = "Cartesian Path2";
 	t2 = createTask(s,-0.2);
 	// t2.id() = s;
 	std::cout<<"t2.id()="<<t2.id()<<"\n";
 	try {
 		if (t2.plan()){
-            // t2.enableIntrospection();
-			t2.introspection().publishSolution(*t2.solutions().front());
-			// std::cout << type(*t2.solutions().front()) << " , "<<type(*t2.solutions().front())<<"\n";
+            t2.enableIntrospection();
+			// t2.introspection().publishSolution(*t2.solutions().front());
+			moveit_msgs::MoveItErrorCodes execute_result = t2.execute(*t2.solutions().front());
+			if (execute_result.val != moveit_msgs::MoveItErrorCodes::SUCCESS) { ROS_INFO_NAMED(LOGNAME, "Task t2 execution Failed!"); }else{ ROS_INFO_NAMED(LOGNAME, "Task t2 execution completed!");}
         }
 	} catch (const InitStageException& ex) {
-		std::cerr << "planning failed with exception" << std::endl << ex << t2;
+		std::cerr << "planning failed with exception" << std::endl << ex << t2;																																																																																																																
 	}
+	// */
+
+	s = "Cartesian Path3";
+	t2 = createTask2(s,-0.2);
+	// t2.id() = s;
+	std::cout<<"t2.id()="<<t2.id()<<"\n";
+	try {
+		if (t2.plan()){
+            t2.enableIntrospection();
+			// t2.introspection().publishSolution(*t2.solutions().front());
+			moveit_msgs::MoveItErrorCodes execute_result = t2.execute(*t2.solutions().front());
+			if (execute_result.val != moveit_msgs::MoveItErrorCodes::SUCCESS) { ROS_INFO_NAMED(LOGNAME, "Task t2 execution Failed!"); }else{ ROS_INFO_NAMED(LOGNAME, "Task t2 execution completed!");}
+        }
+	} catch (const InitStageException& ex) {
+		std::cerr << "planning failed with exception" << std::endl << ex << t2;																																																																																																															
+	}
+
+	// task_execute(t,execute_);
 
     printf("Press ctrl+C to close.\n");
 	ros::waitForShutdown();  // keep alive for interactive inspection in rviz
 	return 0;
-}
-
-// bool task_execute(Task task_) {
-bool task_execute(const moveit::task_constructor::Task& task_) {
-	ROS_INFO_NAMED(LOGNAME, "Executing solution trajectory");
-	moveit_task_constructor_msgs::ExecuteTaskSolutionGoal execute_goal;
-	task_.solutions().front()->fillMessage(execute_goal.solution);
-	// execute_.sendGoal(execute_goal);
-	// execute_.waitForResult();
-	// moveit_msgs::MoveItErrorCodes execute_result = execute_.getResult()->error_code;
-
-	ac.sendGoal(execute_goal); 	// move_action_client_
-	ac.waitForResult();
-	moveit_msgs::MoveItErrorCodes execute_result = ac.getResult()->error_code;
-
-	if (execute_result.val != moveit_msgs::MoveItErrorCodes::SUCCESS) {
-		// ROS_ERROR_STREAM_NAMED(LOGNAME, "Task execution failed and returned: " << execute_.getState().toString());
-		ROS_ERROR_STREAM_NAMED(LOGNAME, "Task execution failed and returned: " << ac.getState().toString());
-		return false;
-	}else{
-		ROS_INFO_NAMED(LOGNAME, "Task execution completed!");
-	}
-
-	return true;
 }
