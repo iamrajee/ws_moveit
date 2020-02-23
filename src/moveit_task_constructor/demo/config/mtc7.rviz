@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /PlanningScene1/Scene Geometry1
         - /TF1/Tree1
-        - /Motion Planning Tasks1
         - /Motion Planning Tasks1/Robot1
         - /Motion Planning Tasks1/Scene1
         - /Motion Planning Tasks1/Tasks1
@@ -35,13 +34,13 @@ Panels:
         - 347
         - 168
       solutions_view_columns:
-        - 57
+        - 100
         - 58
         - 0
       tasks_view_columns:
-        - 217
+        - 216
         - 57
-        - 57
+        - 58
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -76,7 +75,7 @@ Visualization Manager:
       Queue Size: 100
       Value: true
     - Class: moveit_rviz_plugin/PlanningScene
-      Enabled: true
+      Enabled: false
       Move Group Namespace: ""
       Name: PlanningScene
       Planning Scene Topic: /move_group/monitored_planning_scene
@@ -221,7 +220,7 @@ Visualization Manager:
         Robot Alpha: 0.10000000149011612
         Show Robot Collision: false
         Show Robot Visual: true
-      Value: true
+      Value: false
     - Class: rviz/TF
       Enabled: true
       Frame Timeout: 15
@@ -470,10 +469,10 @@ Visualization Manager:
         Voxel Coloring: Z-Axis
         Voxel Rendering: Occupied Voxels
       Show Trail: false
-      State Display Time: 0.05 s
+      State Display Time: REALTIME
       Task Solution Topic: /moveit_task_constructor_demo7/solution
       Tasks:
-        pick_place_task: 18
+        pick_place_task: 12
       Trail Step Size: 1
       Value: true
   Enabled: true
@@ -492,7 +491,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 2.6708223819732666
+      Distance: 5.107142925262451
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -507,10 +506,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.1747971773147583
+      Pitch: 0.5347978472709656
       Target Frame: panda_link0
       Value: XYOrbit (rviz)
-      Yaw: 0.5786152482032776
+      Yaw: 1.228609561920166
     Saved: ~
 Window Geometry:
   Displays:

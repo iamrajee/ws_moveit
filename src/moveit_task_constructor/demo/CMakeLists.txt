@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+gfcmake_minimum_required(VERSION 2.8.3)
 project(moveit_task_constructor_demo)
 
 add_compile_options(-std=c++14)
