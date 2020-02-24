@@ -41,6 +41,8 @@ Default by MTC
 
 14 - two_panda arm pickplace for using differnt arm for same object
 
+15 - TODO : multi task two arm pick place
+
 ======================================== Cartesian ========================================
 Default by MTC
     roslaunch moveit_task_constructor_demo demo.launch

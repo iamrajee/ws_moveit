@@ -30,6 +30,9 @@ target_link_libraries(cartesian2 ${catkin_LIBRARIES})
 add_executable(cartesian3 src/cartesian3.cpp)
 target_link_libraries(cartesian3 ${catkin_LIBRARIES})
 
+add_executable(cartesian4 src/cartesian4.cpp)
+target_link_libraries(cartesian4 ${catkin_LIBRARIES})
+
 add_executable(modular src/modular.cpp)
 target_link_libraries(modular ${catkin_LIBRARIES})
 
@@ -91,6 +94,10 @@ add_dependencies(${PROJECT_NAME}_lib13 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${cat
 add_library(${PROJECT_NAME}_lib14 src/pick_place_task14.cpp)
 set_target_properties(${PROJECT_NAME}_lib14 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place14)
 add_dependencies(${PROJECT_NAME}_lib14 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_library(${PROJECT_NAME}_lib15 src/pick_place_task15.cpp)
+set_target_properties(${PROJECT_NAME}_lib15 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo_pick_place15)
+add_dependencies(${PROJECT_NAME}_lib15 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
 
@@ -169,6 +176,11 @@ target_link_libraries(${PROJECT_NAME}_demo14 ${PROJECT_NAME}_lib14 ${catkin_LIBR
 set_target_properties(${PROJECT_NAME}_demo14 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo14)
 add_dependencies(${PROJECT_NAME}_demo14 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+add_executable(${PROJECT_NAME}_demo15 src/moveit_task_constructor_demo15.cpp)
+target_link_libraries(${PROJECT_NAME}_demo15 ${PROJECT_NAME}_lib15 ${catkin_LIBRARIES})              # <= important lib15 !!!
+set_target_properties(${PROJECT_NAME}_demo15 PROPERTIES OUTPUT_NAME moveit_task_constructor_demo15)
+add_dependencies(${PROJECT_NAME}_demo15 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 
 install(TARGETS ${PROJECT_NAME}_lib ${PROJECT_NAME}_demo
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
@@ -236,6 +248,11 @@ install(TARGETS ${PROJECT_NAME}_lib13 ${PROJECT_NAME}_demo13
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 install(TARGETS ${PROJECT_NAME}_lib14 ${PROJECT_NAME}_demo14
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+install(TARGETS ${PROJECT_NAME}_lib15 ${PROJECT_NAME}_demo15
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
