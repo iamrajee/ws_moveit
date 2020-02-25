@@ -17,6 +17,8 @@
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/server/simple_action_server.h>
 
+#include <ros/callback_queue.h>
+// #include <callback_queue_interface.h>
 
 using namespace moveit::task_constructor;
 constexpr char LOGNAME[] = "cartisian_task_logname"; //<======== new
@@ -75,12 +77,18 @@ Task createTask2(std::string s, double d) {
 	return t;
 }
 
+moveit_msgs::MoveItErrorCodes execute_helper(moveit::task_constructor::Task& t) {
+    moveit_msgs::MoveItErrorCodes execute_result = t.execute(*t.solutions().front());
+    if (execute_result.val != moveit_msgs::MoveItErrorCodes::SUCCESS) {ROS_INFO_NAMED(LOGNAME, "Task t execution Failed!");}else{ROS_INFO_NAMED(LOGNAME, "Task t execution completed!");}
+	return execute_result;
+}
+
 int main(int argc, char** argv) {
 	ros::init(argc, argv, "mtc");
 	actionlib::SimpleActionClient<moveit_task_constructor_msgs::ExecuteTaskSolutionAction> execute_("execute_task_solution", true);
 
-	ros::AsyncSpinner spinner(1);
-	spinner.start();
+	
+	
     Task t,t2;
     std::string s;
 
@@ -88,10 +96,8 @@ int main(int argc, char** argv) {
 	t = createTask(s,0.2);
 	try {
 		if (t.plan()){
-            t.enableIntrospection();
-			// t.introspection().publishSolution(*t.solutions().front());   
-			moveit_msgs::MoveItErrorCodes execute_result = t.execute(*t.solutions().front());
-            if (execute_result.val != moveit_msgs::MoveItErrorCodes::SUCCESS) {ROS_INFO_NAMED(LOGNAME, "Task t execution Failed!");}else{ROS_INFO_NAMED(LOGNAME, "Task t execution completed!");}
+            t.enableIntrospection(); // t.introspection().publishSolution(*t.solutions().front());
+            // execute_helper(t);
         }
 	} catch (const InitStageException& ex) {std::cerr << "planning failed with exception" << std::endl << ex << t;}
 	
@@ -100,13 +106,25 @@ int main(int argc, char** argv) {
 	try {
 		if (t2.plan()){
             t2.enableIntrospection();
-			// t2.introspection().publishSolution(*t2.solutions().front());
-			moveit_msgs::MoveItErrorCodes execute_result = t2.execute(*t2.solutions().front());
-			if (execute_result.val != moveit_msgs::MoveItErrorCodes::SUCCESS) { ROS_INFO_NAMED(LOGNAME, "Task t2 execution Failed!"); }else{ ROS_INFO_NAMED(LOGNAME, "Task t2 execution completed!");}
+            // execute_helper(t2);
         }
 	} catch (const InitStageException& ex) {std::cerr << "planning failed with exception" << std::endl << ex << t2;}
+    std::cout<<"****************** Planning Completed! **************** \n";
 
-    printf("Press ctrl+C to close.\n");
+
+    // ros::AsyncSpinner spinner(2);
+    ros::MultiThreadedSpinner spinner(2);
+    // spinner.start();
+    execute_helper(t);
+    execute_helper(t2);
+    spinner.spin();
+
+    // ros::CallbackQueue my_callback_queue;
+    // my_callback_queue.addCallback(execute_helper);
+    // ros::AsyncSpinner spinner(0, &my_callback_queue);
+    // spinner.start();
+
+    std::cout<<"Press ctrl+C to close.\n";
 	ros::waitForShutdown();
 	return 0;
 }

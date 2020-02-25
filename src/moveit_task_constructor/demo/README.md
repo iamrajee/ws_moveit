@@ -61,8 +61,9 @@ roslaunch moveit_task_constructor_demo demo_cartesian3.launch
 rosrun moveit_task_constructor_demo cartesian3
 
 4 - two arm panda executed simple task and cleaned
-
     could plan but can execute -> resolved by commenting "capabilities" and "disable_capabilities" parameter in move_group.launch
+
+5 - async spinner
 
 
 ======================================== Modular ========================================
