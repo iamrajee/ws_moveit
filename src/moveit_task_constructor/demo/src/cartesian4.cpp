@@ -68,11 +68,29 @@ Task createTask(std::string s, double d) {
 
 	// create Cartesian interpolation "planner" to be used in stages
 	auto cartesian = std::make_shared<solvers::CartesianPath>();
-
+	auto sampling_planner = std::make_shared<solvers::PipelinePlanner>();
+	Stage* current_state = nullptr;
 	
 	t.loadRobotModel();
 	auto scene = std::make_shared<planning_scene::PlanningScene>(t.getRobotModel());
 
+	// ====================== Current State ====================== //
+	{
+		auto _current_state = std::make_unique<stages::CurrentState>("current state");
+		t.add(std::move(_current_state));
+	}
+
+	// ====================== Move to Home ====================== //
+	{
+		auto stage = std::make_unique<stages::MoveTo>("move home", sampling_planner);
+		stage->setGroup(group);
+		stage->setGoal("home1");
+		stage->restrictDirection(stages::MoveTo::FORWARD);
+		current_state = stage.get();
+		t.add(std::move(stage));
+	}
+
+	/*
 	{
 		auto& state = scene->getCurrentStateNonConst();
 		state.setToDefaultValues(state.getJointModelGroup(group), "home1");
@@ -136,7 +154,7 @@ Task createTask(std::string s, double d) {
 		fixed->setState(scene);
 		t.add(std::move(fixed));
 	}
-
+	*/
 	return t;
 }
 
@@ -148,19 +166,36 @@ Task createTask2(std::string s, double d) {
 
 	// create Cartesian interpolation "planner" to be used in stages
 	auto cartesian = std::make_shared<solvers::CartesianPath>();
-
+	auto sampling_planner = std::make_shared<solvers::PipelinePlanner>();
+	Stage* current_state = nullptr;
 	
 	t.loadRobotModel();
 	auto scene = std::make_shared<planning_scene::PlanningScene>(t.getRobotModel());
     
+	// {
+	// 	auto& state = scene->getCurrentStateNonConst();
+	// 	state.setToDefaultValues(state.getJointModelGroup(group), "home2");
+	// 	auto fixed = std::make_unique<stages::FixedState>("initial state");// start from a fixed robot state
+	// 	fixed->setState(scene);
+	// 	t.add(std::move(fixed));
+	// }
+
+	// ====================== Current State ====================== //
 	{
-		auto& state = scene->getCurrentStateNonConst();
-		state.setToDefaultValues(state.getJointModelGroup(group), "home2");
-		auto fixed = std::make_unique<stages::FixedState>("initial state");// start from a fixed robot state
-		fixed->setState(scene);
-		t.add(std::move(fixed));
+		auto _current_state = std::make_unique<stages::CurrentState>("current state");
+		t.add(std::move(_current_state));
 	}
 
+	// ====================== Move to Home ====================== //
+	{
+		auto stage = std::make_unique<stages::MoveTo>("move home", sampling_planner);
+		stage->setGroup(group);
+		stage->setGoal("home2");
+		stage->restrictDirection(stages::MoveTo::FORWARD);
+		current_state = stage.get();
+		t.add(std::move(stage));
+	}
+	/*
 	{
 		auto stage = std::make_unique<stages::MoveRelative>("x +0.3", cartesian);
 		stage->setGroup(group);
@@ -203,19 +238,29 @@ Task createTask2(std::string s, double d) {
 
 		t.add(std::move(stage));
 	}
+	*/
+	// {  // move from reached state back to the original state, using joint interpolation
+	// 	auto joint_interpolation = std::make_shared<solvers::JointInterpolationPlanner>();
+	// 	stages::Connect::GroupPlannerVector planners = { { group, joint_interpolation } };
+	// 	auto connect = std::make_unique<stages::Connect>("connect", planners);
+	// 	t.add(std::move(connect));
+	// }
 
-	{  // move from reached state back to the original state, using joint interpolation
-		auto joint_interpolation = std::make_shared<solvers::JointInterpolationPlanner>();
-		stages::Connect::GroupPlannerVector planners = { { group, joint_interpolation } };
-		auto connect = std::make_unique<stages::Connect>("connect", planners);
-		t.add(std::move(connect));
-	}
+	// {  // final state is original state again
+	// 	auto fixed = std::make_unique<stages::FixedState>("final state");
+	// 	fixed->setState(scene);
+	// 	t.add(std::move(fixed));
+	// }
 
-	{  // final state is original state again
-		auto fixed = std::make_unique<stages::FixedState>("final state");
-		fixed->setState(scene);
-		t.add(std::move(fixed));
-	}
+	// ====================== Move to Home ====================== //
+	// {
+	// 	auto stage = std::make_unique<stages::MoveTo>("move home", sampling_planner);
+	// 	stage->setGroup(group);
+	// 	stage->setGoal("home2");
+	// 	stage->restrictDirection(stages::MoveTo::FORWARD);
+	// 	current_state = stage.get();
+	// 	t.add(std::move(stage));
+	// }
 
 	return t;
 }

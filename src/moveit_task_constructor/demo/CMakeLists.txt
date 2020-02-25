@@ -33,6 +33,9 @@ target_link_libraries(cartesian3 ${catkin_LIBRARIES})
 add_executable(cartesian4 src/cartesian4.cpp)
 target_link_libraries(cartesian4 ${catkin_LIBRARIES})
 
+add_executable(cartesian5 src/cartesian5.cpp)
+target_link_libraries(cartesian5 ${catkin_LIBRARIES})
+
 add_executable(modular src/modular.cpp)
 target_link_libraries(modular ${catkin_LIBRARIES})
 

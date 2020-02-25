@@ -51,11 +51,18 @@ Default by MTC
 2. formating
 
 3. two task with differnt node name
+task execution not return problem -> resolved by using in built t.execute() and updating with recent PR #136
 
 =>  roslaunch moveit_task_constructor_demo demo.launch
     rosrun moveit_task_constructor_demo cartesian2
     rosrun moveit_task_constructor_demo cartesian3
 
+roslaunch moveit_task_constructor_demo demo_cartesian3.launch
+rosrun moveit_task_constructor_demo cartesian3
+
+4 - two arm panda executed simple task and cleaned
+
+    could plan but can execute -> resolved by commenting "capabilities" and "disable_capabilities" parameter in move_group.launch
 
 
 ======================================== Modular ========================================
