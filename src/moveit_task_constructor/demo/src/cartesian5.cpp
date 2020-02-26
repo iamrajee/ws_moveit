@@ -77,6 +77,22 @@ Task createTask2(std::string s, double d) {
 	return t;
 }
 
+bool execute_task(const moveit::task_constructor::Task& t) {
+	actionlib::SimpleActionClient<moveit_task_constructor_msgs::ExecuteTaskSolutionAction> ac("execute_task_solution", true);
+	ac.waitForServer();
+	ROS_INFO_NAMED(LOGNAME, "Executing solution trajectory");
+	moveit_task_constructor_msgs::ExecuteTaskSolutionGoal goal;
+	t.solutions().front()->fillMessage(goal.solution);
+	std::cout<<"Flag1\n";
+	ac.sendGoal(goal);
+	std::cout<<"Flag2\n";
+	ac.waitForResult();
+	std::cout<<"Flag3\n";
+
+	moveit_msgs::MoveItErrorCodes execute_result = ac.getResult()->error_code;
+	if (execute_result.val != moveit_msgs::MoveItErrorCodes::SUCCESS) { ROS_ERROR_STREAM_NAMED(LOGNAME, "Task execution failed and returned: " << ac.getState().toString()); return false;}else{ROS_INFO_NAMED(LOGNAME, "Task execution completed!");} return true;
+}
+
 moveit_msgs::MoveItErrorCodes execute_helper(moveit::task_constructor::Task& t) {
     moveit_msgs::MoveItErrorCodes execute_result = t.execute(*t.solutions().front());
     if (execute_result.val != moveit_msgs::MoveItErrorCodes::SUCCESS) {ROS_INFO_NAMED(LOGNAME, "Task t execution Failed!");}else{ROS_INFO_NAMED(LOGNAME, "Task t execution completed!");}
@@ -85,9 +101,6 @@ moveit_msgs::MoveItErrorCodes execute_helper(moveit::task_constructor::Task& t) 
 
 int main(int argc, char** argv) {
 	ros::init(argc, argv, "mtc");
-	actionlib::SimpleActionClient<moveit_task_constructor_msgs::ExecuteTaskSolutionAction> execute_("execute_task_solution", true);
-
-	
 	
     Task t,t2;
     std::string s;
@@ -111,13 +124,20 @@ int main(int argc, char** argv) {
 	} catch (const InitStageException& ex) {std::cerr << "planning failed with exception" << std::endl << ex << t2;}
     std::cout<<"****************** Planning Completed! **************** \n";
 
+    ros::AsyncSpinner spinner(2);
+    spinner.start();
+	execute_task(t);
+	execute_task(t2);
 
     // ros::AsyncSpinner spinner(2);
-    ros::MultiThreadedSpinner spinner(2);
     // spinner.start();
-    execute_helper(t);
-    execute_helper(t2);
-    spinner.spin();
+    // execute_helper(t);
+    // execute_helper(t2);
+
+    // ros::MultiThreadedSpinner spinner(2);
+    // execute_helper(t);
+    // execute_helper(t2);
+    // spinner.spin();
 
     // ros::CallbackQueue my_callback_queue;
     // my_callback_queue.addCallback(execute_helper);
