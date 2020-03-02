@@ -15,10 +15,9 @@ namespace moveit_task_constructor_demo
 constexpr char LOGNAME[] = "pick_place_task";
 
 //ClassX::MethodY(int arg1, int arg2) : arg1_(arg1), arg2_(arg2) {}                                   //overloading member of class
+// overloading the function                                                                           // ???? <======
 PickPlaceTask::PickPlaceTask(const std::string& task_name, const ros::NodeHandle& nh) : nh_(nh), task_name_(task_name), execute_("execute_task_solution", true) {}
 
-
-// overloading the function                                                                           // ???? <======
                                                                          
 	                                            /****************************************************\
 -----------------------------------------------*                loadParameters                        *-------------------------------------------
