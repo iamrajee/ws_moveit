@@ -4,3 +4,4 @@ devel/
 devel_isolated/
 extras/
 .rosinstall
+*.bag
