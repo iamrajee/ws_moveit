@@ -1,22 +1,22 @@
-# ROS2 Dashing Workspace
+# ROS2 Melodic Workspace
 
-[![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger) [![Coverage Status](http://img.shields.io/coveralls/badges/badgerbadgerbadger.svg?style=flat-square)](https://coveralls.io/r/badges/badgerbadgerbadger) [![MIT License](https://img.shields.io/github/license/iamrajee/ros2dashing_moveit_ws.svg)](http://badges.mit-license.org) [![GitHub Issues](https://img.shields.io/github/issues/iamrajee/ros2dashing_moveit_ws.svg)](https://github.com/iamrajee/ros2dashing_moveit_ws/issues) [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/iamrajee/ros2dashing_moveit_ws.svg)](https://github.com/iamrajee/ros2dashing_moveit_ws/pulls) [![Gem Version](http://img.shields.io/gem/v/badgerbadgerbadger.svg?style=flat-square)](https://rubygems.org/gems/badgerbadgerbadger) [![Gitter](https://badges.gitter.im/iamrajee-ROS/community.svg)](https://gitter.im/iamrajee-ROS/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Join our Slack Workspace](https://img.shields.io/badge/Slack%20Workspace-roboticsclubiitpkd.slack.com-blue.svg?logo=slack&longCache=true&style=flat)](https://roboticsclubiitpkd.slack.com) [![first-timers-only](https://img.shields.io/badge/first--timers--only-friendly-blue.svg)](https://www.firsttimersonly.com/)
+[![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger) [![Coverage Status](http://img.shields.io/coveralls/badges/badgerbadgerbadger.svg?style=flat-square)](https://coveralls.io/r/badges/badgerbadgerbadger) [![MIT License](https://img.shields.io/github/license/iamrajee/ws_moveit.svg)](http://badges.mit-license.org) [![GitHub Issues](https://img.shields.io/github/issues/iamrajee/ws_moveit.svg)](https://github.com/iamrajee/ws_moveit/issues) [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/iamrajee/ws_moveit.svg)](https://github.com/iamrajee/ws_moveit/pulls) [![Gem Version](http://img.shields.io/gem/v/badgerbadgerbadger.svg?style=flat-square)](https://rubygems.org/gems/badgerbadgerbadger) [![Gitter](https://badges.gitter.im/iamrajee-ROS/community.svg)](https://gitter.im/iamrajee-ROS/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Join our Slack Workspace](https://img.shields.io/badge/Slack%20Workspace-roboticsclubiitpkd.slack.com-blue.svg?logo=slack&longCache=true&style=flat)](https://roboticsclubiitpkd.slack.com) [![first-timers-only](https://img.shields.io/badge/first--timers--only-friendly-blue.svg)](https://www.firsttimersonly.com/)
 
 
-This ROS dashing workspace is created on Ubuntu 18.04.
+This ROS melodic workspace is created on Ubuntu 18.04.
 <br/><br/>
 
 ## Table of content
-- [Maintainer](https://github.com/iamrajee/ros2dashing_moveit_ws#maintainer)
-- [Installation](https://github.com/iamrajee/ros2dashing_moveit_ws#installation)
-- [Package description](https://github.com/iamrajee/ros2dashing_moveit_ws#package-description)
-- [Helper scripts](https://github.com/iamrajee/ros2dashing_moveit_ws#helper-scripts)
-- [Team](https://github.com/iamrajee/ros2dashing_moveit_ws#team)
-- [Contributing](https://github.com/iamrajee/ros2dashing_moveit_ws#contributing)
-- [FAQ](https://github.com/iamrajee/ros2dashing_moveit_ws#faq)
-- [Support](https://github.com/iamrajee/ros2dashing_moveit_ws#support)
-- [License](https://github.com/iamrajee/ros2dashing_moveit_ws#license)
-- [Acknowledgments](https://github.com/iamrajee/ros2dashing_moveit_ws#acknowledgments)
+- [Maintainer](https://github.com/iamrajee/ws_moveit#maintainer)
+- [Installation](https://github.com/iamrajee/ws_moveit#installation)
+- [Package description](https://github.com/iamrajee/ws_moveit#package-description)
+- [Helper scripts](https://github.com/iamrajee/ws_moveit#helper-scripts)
+- [Team](https://github.com/iamrajee/ws_moveit#team)
+- [Contributing](https://github.com/iamrajee/ws_moveit#contributing)
+- [FAQ](https://github.com/iamrajee/ws_moveit#faq)
+- [Support](https://github.com/iamrajee/ws_moveit#support)
+- [License](https://github.com/iamrajee/ws_moveit#license)
+- [Acknowledgments](https://github.com/iamrajee/ws_moveit#acknowledgments)
 <!--- - [xyz](link) --->
 
 ---
@@ -39,12 +39,12 @@ This ROS dashing workspace is created on Ubuntu 18.04.
 - #### Clone
 
     ```
-    git clone https://github.com/iamrajee/ros2dashing_moveit_ws.git
+    git clone https://github.com/iamrajee/ws_moveit.git
     ```
 
 - #### Setup
     ```
-    cd ros2dashing_moveit_ws/
+    cd ws_moveit/
     ./refresh.sh
     make
     ```
@@ -52,27 +52,25 @@ This ROS dashing workspace is created on Ubuntu 18.04.
 
 
 ## Package description
-* ## [firstpkg](src/firstpkg)
-    first pkg to create simple talker and listener.*
+* ## [panda](src/panda)
+    panda pkg contain cpp and py interface for moveit.*
 
     Terminal 1:
     ```
     $ roscore
-    $ rosrun firstpkg talker.py
+    $ TODO
     ```
     Terminal 2:
     ```
-    $ rosrun firstpkg listen.py
+    $ TODO
     ```
 
 
-* ## [manualcontrol](src/manualcontrol)
+* ## [panda](src/panda)
     ![RAWBOT 2.0](demogif/RAWBOT.gif)\
-    See full video [here](https://youtu.be/wrBw4yES4Eo).
-    *In this pkg is create for a robot name RAWBOT,which is surveling robot.*
+    See full video [here](TODO).
+    *In this pkg TODO*
 
-* ## [manualcontrol_slave](src/manualcontrol_slave)
-    *This pkg is similar to manualcontrol with some more functionality and modification, and it is meant to be used on ROS Master which is used as Slave in the system on robots*
 
 ---
 <br/><br/>
@@ -94,7 +92,7 @@ This ROS dashing workspace is created on Ubuntu 18.04.
     all:
         make run
     run:
-        catkin_make #catkin_make_isolated
+        catkin_make
         bash refresh.sh
     ```
     > It will build the workspace . Run it as `make`
@@ -146,7 +144,7 @@ This ROS dashing workspace is created on Ubuntu 18.04.
 | <a href="https://github.com/MuskaanMaheshwari" target="_blank">**Muskaan Maheshwari**</a> | <a href="https://www.linkedin.com/in/sachin-rustagi-882b55145/" target="_blank">**Sachin Rustagi**</a> | <a href="https://www.linkedin.com/in/s-m-rafi-911442130/" target="_blank">**S M Rafi**</a> |
 | :---: |:---:| :---:|
 --->
-| <a href="https://github.com/MuskaanMaheshwari" target="_blank">**Muskaan Maheshwari**</a> | <a href="https://www.linkedin.com/in/sachin-rustagi-882b55145/" target="_blank">**Sachin Rustagi**</a> | <a href="https://www.linkedin.com/in/amin-swamiprasad-pkd-17732b152/" target="_blank">**Swami Prasad**</a> |
+| <a href="https://github.com/abhinand4as" target="_blank">**Abhinand A S**</a> | <a href="https://www.linkedin.com/in/sachin-rustagi-882b55145/" target="_blank">**Sachin Rustagi**</a> | <a href="https://www.linkedin.com/in/amin-swamiprasad-pkd-17732b152/" target="_blank">**Swami Prasad**</a> |
 | :---: |:---:| :---:|
 | ![](https://avatars0.githubusercontent.com/u/18076234?s=200&v=3) | ![](https://avatars0.githubusercontent.com/u/2555224?s=200&v=3) | ![](https://avatars0.githubusercontent.com/u/917816?s=200&v=3)  |
 
@@ -163,7 +161,7 @@ This ROS dashing workspace is created on Ubuntu 18.04.
     - 🍴 Fork this repo!
 
 - **Option 2**
-    - 👯 Clone this repo to your local machine using `https://github.com/iamrajee/ros2dashing_moveit_ws.git`
+    - 👯 Clone this repo to your local machine using `https://github.com/iamrajee/ws_moveit.git`
 
 ### Step 2
 
@@ -171,12 +169,12 @@ This ROS dashing workspace is created on Ubuntu 18.04.
 
 ### Step 3
 
-- 🔃 Create a new pull request using <a href="https://github.com/iamrajee/ros2dashing_moveit_ws/compare/" target="_blank">`https://github.com/iamrajee/ros2dashing_moveit_ws/compare/`</a>.
+- 🔃 Create a new pull request using <a href="https://github.com/iamrajee/ws_moveit/compare/" target="_blank">`https://github.com/iamrajee/ws_moveit/compare/`</a>.
 ---
 
 ## FAQ
 
-- **I ran into xyz issue while running above package, what do I do?**
+- **I ran into some issue while running above package, what to do now?**
     - Simply contact me!
 
 ---
@@ -192,7 +190,7 @@ Reach out to me at one of the following places!
 
 ## License
 
-[![MIT License](https://img.shields.io/github/license/iamrajee/ros2dashing_moveit_ws.svg)](http://badges.mit-license.org)
+[![MIT License](https://img.shields.io/github/license/iamrajee/ws_moveit.svg)](http://badges.mit-license.org)
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
 - Copyright (c) 2019 [Rajendra Singh](https://iamrajee.github.io/).
