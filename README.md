@@ -1,4 +1,4 @@
-# ROS1 Melodic Workspace
+# ROS Melodic Workspace
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger) [![Coverage Status](http://img.shields.io/coveralls/badges/badgerbadgerbadger.svg?style=flat-square)](https://coveralls.io/r/badges/badgerbadgerbadger) [![MIT License](https://img.shields.io/github/license/iamrajee/ws_moveit.svg)](http://badges.mit-license.org) [![GitHub Issues](https://img.shields.io/github/issues/iamrajee/ws_moveit.svg)](https://github.com/iamrajee/ws_moveit/issues) [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/iamrajee/ws_moveit.svg)](https://github.com/iamrajee/ws_moveit/pulls) [![Gem Version](http://img.shields.io/gem/v/badgerbadgerbadger.svg?style=flat-square)](https://rubygems.org/gems/badgerbadgerbadger) [![Gitter](https://badges.gitter.im/iamrajee-ROS/community.svg)](https://gitter.im/iamrajee-ROS/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Join our Slack Workspace](https://img.shields.io/badge/Slack%20Workspace-roboticsclubiitpkd.slack.com-blue.svg?logo=slack&longCache=true&style=flat)](https://roboticsclubiitpkd.slack.com) [![first-timers-only](https://img.shields.io/badge/first--timers--only-friendly-blue.svg)](https://www.firsttimersonly.com/)
 
@@ -33,7 +33,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.
 
 > All the `code` required to get started
 - #### Prerequisite
-    - You should have ROS1 melodic on your ubuntu 18.04.
+    - You should have ROS melodic on your ubuntu 18.04.
     - All ROS dependency is satisfied.
 
 - #### Clone
