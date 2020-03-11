@@ -79,7 +79,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.
 * ## refresh.sh
     ```
     #!/bin/bash
-    source /opt/ros/eloquent/setup.bash
+    source /opt/ros/melodic/setup.bash
     source install/local_setup.bash
     source install/setup.bash
     clear
