@@ -33,7 +33,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.
 
 > All the `code` required to get started
 - #### Prerequisite
-    - You should have ROS 1 kinectic build from source on your raspberry pi(raspbian OS).
+    - You should have ROS2 melodic on your ubuntu 18.04.
     - All ROS dependency is satisfied.
 
 - #### Clone
