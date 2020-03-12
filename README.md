@@ -52,9 +52,39 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
 
 
 ## Package description
+* ## [moveit_task_constructor](src/moveit_task_constructor)
+    panda pkg contain cpp and py interface for moveit.*
+    ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_ws_melodic/moveit_moveit.gif)\
+    ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_ws_melodic/two_arm_iit.gif)\
+    ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_ws_melodic/two_arm_pour.gif)\
+    ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_ws_melodic/two_arm_pour_clean.gif)\
+    Terminal 1:
+    ```
+    $ roscore
+    $ TODO
+    ```
+    Terminal 2:
+    ```
+    $ TODO
+    ```
+    
 * ## [panda](src/panda)
     panda pkg contain cpp and py interface for moveit.*
-
+    ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_Kinetic_src/cylinder_detect.gif)\
+    ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_Kinetic_src/pickplace.gif)\
+    Terminal 1:
+    ```
+    $ roscore
+    $ TODO
+    ```
+    Terminal 2:
+    ```
+    $ TODO
+    ```
+    
+* ## [mtc_pour](src/mtc_pour)
+    panda pkg contain cpp and py interface for moveit.*
+    ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_ws_melodic/ur5_pour.gif)\
     Terminal 1:
     ```
     $ roscore
@@ -66,8 +96,8 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
 
 
-* ## [panda](src/panda)
-    ![RAWBOT 2.0](demogif/RAWBOT.gif)\
+* ## VLP16
+    ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_ws_melodic/vlp16.gif)\
     See full video [here](TODO).
     *In this pkg TODO*
 
