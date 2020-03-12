@@ -84,7 +84,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     
 * ## [mtc_pour](src/mtc_pour)
     panda pkg contain cpp and py interface for moveit.*
-    ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_ws_melodic/ur5_pour.gif)\
+    ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_ws_melodic/ur5_pour2.gif)\
     Terminal 1:
     ```
     $ roscore
