@@ -65,7 +65,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <details>
     <summary>1. To Run default demo of MTC</summary>
     
-    > To Run default demo of MTC
+    
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
@@ -73,10 +73,21 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
 
+    #### 2. To Run default demo of MTC
+    > To Run default demo of MTC
     <details>
-    <summary>. </summary>
+    <summary>Run </summary>
     
-    > 
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 3. To Run default demo of MTC
+    > To Run default demo of MTC
+    <details>
+    <summary>Run </summary>
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
