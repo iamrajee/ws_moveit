@@ -260,7 +260,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     </details>
 
     ---
-    Cartesian Demos
+    ***Cartesian Demos***
     ---
     
     #### 1. Run default cartesian demo of MTC
@@ -339,7 +339,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     </details>
     
     ---
-    Modular Demos
+    ***Modular Demos***
     ---
     
     #### 1. Run default Modular demo of MTC
