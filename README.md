@@ -73,8 +73,177 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
     ```
     
-    #### 2. To Run default demo of MTC
-    > To Run default demo of MTC
+    #### 2. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 3. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 4. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 5. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 6. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 7. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 8. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 9. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 10. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 11. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 12. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 13. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 14. 
+    > 
+    <details>
+    <summary>Run </summary>
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    ```
+    </details>
+    
+    #### 15. 
+    > 
     <details>
     <summary>Run </summary>
     
