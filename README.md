@@ -103,8 +103,8 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 4. Same as above but included abstract function pick place for multiple object(TODO)
-    > 
+    #### 4. Same as above but included abstract function pick place for multiple object
+    > TODO
     <details>
     <summary>Run </summary>
     
@@ -116,8 +116,8 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 5. Pick & Place for two panda arm (comment various ways which didn't worked)
-    > 
+    #### 5. Pick & Place for two panda arm
+    > Also commented various ways which didn't worked
     <details>
     <summary>Run </summary>
     
@@ -246,8 +246,8 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 15. Pick & Place for two panda arm using seperated tasks(TODO)
-    > 
+    #### 15. Pick & Place for two panda arm using seperated tasks
+    > TODO
     <details>
     <summary>Run </summary>
     
