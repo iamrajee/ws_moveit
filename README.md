@@ -74,9 +74,9 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     </details>
 
     <details>
-    <summary>2. To Run default demo of MTC</summary>
+    <summary>. </summary>
     
-    > To Run default demo of MTC
+    > 
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
