@@ -68,6 +68,8 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
     Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
     ```
     
