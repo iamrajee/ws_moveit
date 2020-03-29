@@ -62,7 +62,11 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_ws_melodic/two_arm_pour.gif)
     ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_ws_melodic/two_arm_pour_clean.gif)
 
-    #### 1. To Run default demo of MTC
+    ---
+    Pick, Place and pouring demos
+    ---
+    
+    #### 1. Run default Pick & Place demo of MTC
     > To Run default demo of MTC
     ##### Run
     
@@ -79,10 +83,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo2.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace2.launch
     ```
     </details>
     
@@ -92,10 +96,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo3.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace3.launch
     ```
     </details>
     
@@ -105,10 +109,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo4.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace4.launch
     ```
     </details>
     
@@ -118,10 +122,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo5.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace5.launch
     ```
     </details>
     
@@ -131,10 +135,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo6.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace6.launch
     ```
     </details>
     
@@ -144,10 +148,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo7.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace7.launch
     ```
     </details>
     
@@ -157,10 +161,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo8.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace8.launch
     ```
     </details>
     
@@ -170,10 +174,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo9.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace9.launch
     ```
     </details>
     
@@ -183,10 +187,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo10.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace10.launch
     ```
     </details>
     
@@ -196,10 +200,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo11.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace11.launch
     ```
     </details>
     
@@ -209,10 +213,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo12.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace12.launch
     ```
     </details>
     
@@ -222,10 +226,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo13.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace13.launch
     ```
     </details>
     
@@ -235,10 +239,10 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo14.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace14.launch
     ```
     </details>
     
@@ -248,48 +252,29 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     <summary>Run </summary>
     
     ```
-    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    Terminal 1: roslaunch moveit_task_constructor_demo demo15.launch
     ```
     ```
-    Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
+    Terminal 2: roslaunch moveit_task_constructor_demo pickplace15.launch
     ```
     </details>
-    
-    ======================================== PickPlace ========================================
-Default by MTC
-    roslaunch moveit_task_constructor_demo demo.launch
-    roslaunch moveit_task_constructor_demo pickplace.launch
-
-2 - Custom formating with same code
-    roslaunch moveit_task_constructor_demo demo2.launch
-    roslaunch moveit_task_constructor_demo pickplace2.launch
-
-3 - panda : two object, two cylider
-
-4 - TODO : panda : for abstract pick place for multiple object
-
-5 - individually two_panda(comment various ways whichh didn't worked)
-
-6 - individually two_panda(clearner)
- 
-7 - serial two_panda
-
-8 - Parallelising two_panda simple (Merger)
-
-9 - panda single arm pouring
-
-10 - two_panda arm pouring ground 
-
-11 - two_panda arm pouring, glass on hight, arm sysmetric about origin
-
-12 - two_panda arm pouring(cleaned)
-
-13 - two_panda arm pickplace for differnt object
-
-14 - two_panda arm pickplace for using differnt arm for same object
-
-15 - TODO : multi task two arm pick place
-
+<!---
+1 - Default Pick & Place demo of MTC
+2 - Same as above but with custom formating
+3 - Same as above but for two object & two cylider
+4 - Same as above but included abstract function pick place for multiple object(TODO)
+5 - Pick & Place for two panda arm (comment various ways which didn't worked)
+6 - Same as above but clearner
+7 - Serially executing Pick & Place task using two panda arm
+8 - Parallelly(Merger) executing simple task using two panda arm
+9 - Simplest single panda arm pouring demo
+10 - Same as above but keeping glass at ground level 
+11 - Same as above but keeping glass at some height from ground
+12 - Cleaned version of two panda arm pouring.
+13 - Pick & Place using two panda arm for differnt object
+14 - Pick & Place using two panda arm for same object
+15 - Pick & Place for two panda arm using seperated tasks(TODO)
+--->
 ======================================== Cartesian ========================================
 Default by MTC
     roslaunch moveit_task_constructor_demo demo.launch
