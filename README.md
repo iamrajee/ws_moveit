@@ -63,7 +63,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_ws_melodic/two_arm_pour_clean.gif)
     
     <details>
-    <summary>#### 1. To Run default demo of MTC</summary>
+    <summary>1. To Run default demo of MTC</summary>
     
     > To Run default demo of MTC
     
