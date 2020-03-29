@@ -74,7 +74,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     </details>
 
     <details>
-    <summary>To Run default demo of MTC</summary>
+    <summary>2. To Run default demo of MTC</summary>
     
     > To Run default demo of MTC
     
