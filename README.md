@@ -77,7 +77,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     Terminal 2: roslaunch moveit_task_constructor_demo pickplace.launch
     ```
     
-    #### 2. 
+    #### 2. Same as above but with custom formating
     > 
     <details>
     <summary>Run </summary>
@@ -90,7 +90,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 3. 
+    #### 3. Same as above but for two object & two cylider
     > 
     <details>
     <summary>Run </summary>
@@ -103,7 +103,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 4. 
+    #### 4. Same as above but included abstract function pick place for multiple object(TODO)
     > 
     <details>
     <summary>Run </summary>
@@ -116,7 +116,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 5. 
+    #### 5. Pick & Place for two panda arm (comment various ways which didn't worked)
     > 
     <details>
     <summary>Run </summary>
@@ -129,7 +129,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 6. 
+    #### 6. Same as above but clearner
     > 
     <details>
     <summary>Run </summary>
@@ -142,7 +142,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 7. 
+    #### 7. Serially executing Pick & Place task using two panda arm
     > 
     <details>
     <summary>Run </summary>
@@ -155,7 +155,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 8. 
+    #### 8. Parallelly(Merger) executing simple task using two panda arm
     > 
     <details>
     <summary>Run </summary>
@@ -168,7 +168,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 9. 
+    #### 9. Simplest single panda arm pouring demo
     > 
     <details>
     <summary>Run </summary>
@@ -181,7 +181,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 10. 
+    #### 10. Same as above but keeping glass at ground level 
     > 
     <details>
     <summary>Run </summary>
@@ -194,7 +194,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 11. 
+    #### 11. Same as above but keeping glass at some height from ground
     > 
     <details>
     <summary>Run </summary>
@@ -207,7 +207,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 12. 
+    #### 12. Cleaned version of two panda arm pouring.
     > 
     <details>
     <summary>Run </summary>
@@ -220,7 +220,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 13. 
+    #### 13. Pick & Place using two panda arm for differnt object
     > 
     <details>
     <summary>Run </summary>
@@ -233,7 +233,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 14. 
+    #### 14. Pick & Place using two panda arm for same object
     > 
     <details>
     <summary>Run </summary>
@@ -246,7 +246,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     </details>
     
-    #### 15. 
+    #### 15. Pick & Place for two panda arm using seperated tasks(TODO)
     > 
     <details>
     <summary>Run </summary>
