@@ -80,7 +80,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     #### 2. Same as above but with custom formating
     > 
     <details>
-    <summary>Run </summary>
+    <summary>Run (Click to expand!)</summary>
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo2.launch
