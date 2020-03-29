@@ -67,7 +67,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ---
     
     #### 1. Run default Pick & Place demo of MTC
-    > To Run default demo of MTC
+    > This is the default Pick & Place demo provided by the MTC.
     ##### Run
     
     ```
@@ -258,6 +258,107 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     Terminal 2: roslaunch moveit_task_constructor_demo pickplace15.launch
     ```
     </details>
+
+    ---
+    Cartesian Demos
+    ---
+    
+    #### 1. Run default cartesian demo of MTC
+    > This is the default cartesian demo provided by the MTC.
+    ##### Run
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo_cartesian.launch/demo.launch
+    ```
+    ```
+    Terminal 2: rosrun moveit_task_constructor_demo cartesian
+    ```
+    
+    #### 2. Same as above but with custom formating
+    > 
+    ##### Run
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo_cartesian2.launch
+    ```
+    ```
+    Terminal 2: rosrun moveit_task_constructor_demo cartesian2
+    ```
+    ```
+    Terminal 3: rosrun moveit_task_constructor_demo cartesian3
+    ```
+
+    #### 3. Executing two task with differnt node name
+    > task execution not return problem -> resolved by using in built t.execute() and updating with recent PR #136
+    ##### Run
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo3.launch
+    ```
+    ```
+    Terminal 2: rosrun moveit_task_constructor_demo cartesian3
+    ```
+    ```
+    Terminal 3: rosrun moveit_task_constructor_demo cartesian3
+    ```
+    
+    or
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo_cartesian3.launch
+    ```
+    ```
+    Terminal 2: rosrun moveit_task_constructor_demo cartesian3
+    ```
+
+    #### 4. Two arm panda executed simple different task
+    > (Cleaned) could plan but can execute -> resolved by commenting "capabilities" and "disable_capabilities" parameter in move_group.launch 
+    ##### Run
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo_cartesian4.launch
+    ```
+    ```
+    Terminal 2: rosrun moveit_task_constructor_demo cartesian4
+    ```
+    
+    #### 5. Trying async spinner to execute two task simontaneously
+    > 
+    ##### Run
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo_cartesian5.launch
+    ```
+    ```
+    Terminal 2: rosrun moveit_task_constructor_demo cartesian5
+    ```
+
+    ---
+    Modular Demos
+    ---
+    
+    #### 1. Run default Modular demo of MTC
+    > This is the default Modular demo provided by the MTC.
+    ##### Run
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: rosrun moveit_task_constructor_demo modular
+    ```
+    
+    #### 2. Same as above but with custom formating
+    > 
+    ##### Run
+    
+    ```
+    Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
+    ```
+    ```
+    Terminal 2: rosrun moveit_task_constructor_demo modular2
+    ```
+    
 <!---
 1 - Default Pick & Place demo of MTC
 2 - Same as above but with custom formating
@@ -275,38 +376,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
 14 - Pick & Place using two panda arm for same object
 15 - Pick & Place for two panda arm using seperated tasks(TODO)
 --->
-======================================== Cartesian ========================================
-Default by MTC
-    roslaunch moveit_task_constructor_demo demo.launch
-    rosrun moveit_task_constructor_demo cartesian
 
-2. formating
-
-3. two task with differnt node name
-task execution not return problem -> resolved by using in built t.execute() and updating with recent PR #136
-
-=>  roslaunch moveit_task_constructor_demo demo.launch
-    rosrun moveit_task_constructor_demo cartesian2
-    rosrun moveit_task_constructor_demo cartesian3
-
-roslaunch moveit_task_constructor_demo demo_cartesian3.launch
-rosrun moveit_task_constructor_demo cartesian3
-
-4 - two arm panda executed simple task and cleaned
-    could plan but can execute -> resolved by commenting "capabilities" and "disable_capabilities" parameter in move_group.launch
-
-5 - async spinner
-
-
-======================================== Modular ========================================
-Default by MTC
-    roslaunch moveit_task_constructor_demo demo.launch
-    rosrun moveit_task_constructor_demo modular
-
-2. formating
-=========================================================================================
-Added "enforce_joint_model_state_space: true #added newenforce_joint_model_state_space: true #added new" in /home/rajendra/ws_moveit/src/two_panda_moveit_config/config/ompl_planning.yaml
-    
 * ## [panda](src/panda)
     panda pkg contain cpp and py interface for moveit.*
     ![](https://github.com/iamrajee/resume/blob/master/category_wise_gif/ROS1_Kinetic_src/cylinder_detect.gif)\
