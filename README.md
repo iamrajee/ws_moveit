@@ -290,7 +290,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     #### 3. Executing two task with differnt node name
     > task execution not return problem -> resolved by using in built t.execute() and updating with recent PR #136
     <details>
-    <summary>Run (Click to expand!)</summary>
+    <summary>Run</summary>
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo3.launch
@@ -315,7 +315,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     #### 4. Two arm panda executed simple different task
     > (Cleaned) could plan but can execute -> resolved by commenting "capabilities" and "disable_capabilities" parameter in move_group.launch 
     <details>
-    <summary>Run (Click to expand!)</summary>
+    <summary>Run</summary>
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo_cartesian4.launch
@@ -328,7 +328,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     #### 5. Trying async spinner to execute two task simontaneously
     > 
     <details>
-    <summary>Run (Click to expand!)</summary>
+    <summary>Run</summary>
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo_cartesian5.launch
