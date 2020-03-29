@@ -276,7 +276,8 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     
     #### 2. Same as above but with custom formating
     > 
-    ##### Run
+    <details>
+    <summary>Run (Click to expand!)</summary>
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo_cartesian2.launch
@@ -284,19 +285,18 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     Terminal 2: rosrun moveit_task_constructor_demo cartesian2
     ```
-    ```
-    Terminal 3: rosrun moveit_task_constructor_demo cartesian3
-    ```
-
+    </details>
+    
     #### 3. Executing two task with differnt node name
     > task execution not return problem -> resolved by using in built t.execute() and updating with recent PR #136
-    ##### Run
+    <details>
+    <summary>Run (Click to expand!)</summary>
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo3.launch
     ```
     ```
-    Terminal 2: rosrun moveit_task_constructor_demo cartesian3
+    Terminal 2: rosrun moveit_task_constructor_demo cartesian2
     ```
     ```
     Terminal 3: rosrun moveit_task_constructor_demo cartesian3
@@ -310,10 +310,12 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     Terminal 2: rosrun moveit_task_constructor_demo cartesian3
     ```
-
+    </details>
+    
     #### 4. Two arm panda executed simple different task
     > (Cleaned) could plan but can execute -> resolved by commenting "capabilities" and "disable_capabilities" parameter in move_group.launch 
-    ##### Run
+    <details>
+    <summary>Run (Click to expand!)</summary>
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo_cartesian4.launch
@@ -321,10 +323,12 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     Terminal 2: rosrun moveit_task_constructor_demo cartesian4
     ```
-    
+    </details>
+        
     #### 5. Trying async spinner to execute two task simontaneously
     > 
-    ##### Run
+    <details>
+    <summary>Run (Click to expand!)</summary>
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo_cartesian5.launch
@@ -332,7 +336,8 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     Terminal 2: rosrun moveit_task_constructor_demo cartesian5
     ```
-
+    </details>
+    
     ---
     Modular Demos
     ---
@@ -350,7 +355,8 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     
     #### 2. Same as above but with custom formating
     > 
-    ##### Run
+    <details>
+    <summary>Run (Click to expand!)</summary>
     
     ```
     Terminal 1: roslaunch moveit_task_constructor_demo demo.launch
@@ -358,7 +364,8 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     Terminal 2: rosrun moveit_task_constructor_demo modular2
     ```
-    
+     </details>
+       
 <!---
 1 - Default Pick & Place demo of MTC
 2 - Same as above but with custom formating
