@@ -24,14 +24,6 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
 
 ---
 
-## Maintainer
-|  |  |
-| :---: | --- |
-| ![](https://avatars0.githubusercontent.com/u/25712145?s=200&v=3) | Name : Rajendra Singh<br/> Email  : singh.raj1997@gmail.com<br/> Web    : https://iamrajee.github.io/<br/> LinkedIn    : https://www.linkedin.com/in/rajendra-singh-6b0b3a13a/ |
-|  |  |
-
----
-
 ## Installation
 
 > All the `code` required to get started
@@ -526,12 +518,12 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
 ---
 
 ## Support
-Reach out to me at one of the following places!
-
-- Website: <a href="https://iamrajee.github.io/" target="_blank">`iamrajee.github.io/`</a>
-- Twitter: <a href="https://twitter.com/i_am_rajee" target="_blank">`@i_am_rajee`</a>
-- Email  : singh.raj1997@gmail.com
-- LinkedIn: at <a href="https://www.linkedin.com/in/rajendra-singh-6b0b3a13a/" target="_blank">`@Rajendra Singh`</a>
+Reach out to me for any help!
+|  |  |
+| :---: | --- |
+| ![](https://avatars0.githubusercontent.com/u/25712145?s=200&v=3) | Name : Rajendra Singh<br/> Email  : singh.raj1997@gmail.com<br/> Web    : https://iamrajee.github.io/<br/> LinkedIn    : https://www.linkedin.com/in/rajendra-singh-6b0b3a13a/<br/> Twitter: <a href="https://twitter.com/i_am_rajee" target="_blank">`@i_am_rajee`</a> |
+|  |  |
+ 
 ---
 
 ## License
