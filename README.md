@@ -10,7 +10,6 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
 <br/><br/>
 
 ## Table of content
-- [Maintainer](https://github.com/iamrajee/ws_moveit#maintainer)
 - [Installation](https://github.com/iamrajee/ws_moveit#installation)
 - [Package description](https://github.com/iamrajee/ws_moveit#package-description)
 - [Helper scripts](https://github.com/iamrajee/ws_moveit#helper-scripts)
