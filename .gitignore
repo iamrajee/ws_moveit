@@ -3,5 +3,6 @@ build_isolated/
 devel/
 devel_isolated/
 extras/
+src/mtc_pickplace/
 .rosinstall
 *.bag

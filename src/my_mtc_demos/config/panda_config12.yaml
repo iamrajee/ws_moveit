@@ -1,0 +1,104 @@
+# Total planning attempts
+planning_attempts: 8
+
+arm_group_name: "panda1_arm" # Planning group and link names
+eef_name: "hand1_eef"
+hand_group_name: "hand1"
+hand_frame: "panda1_link8"
+hand_open_pose: "open1" # Poses
+hand_close_pose: "close1"
+arm_home_pose: "home1"
+
+arm2_group_name: "panda2_arm" # Planning group and link names
+eef2_name: "hand2_eef"
+hand2_group_name: "hand2"
+hand2_frame: "panda2_link8"
+hand2_open_pose: "open2" # Poses
+hand2_close_pose: "close2"
+arm2_home_pose: "home2"
+
+# Scene frames
+world_frame: "world"
+
+# Collision object for picking CYLINDER object specifications
+
+object_name: "cylinder"                                   #for cylinder
+object_dimensions: [0.25, 0.02] # [height, radius]
+object_pose: [-0.5 , -0.5, 0.0, 0, 0, 0]
+object_reference_frame: "world"
+
+object2_name: "cylinder2"
+object2_dimensions: [0.25, 0.02] # [height, radius]
+object2_pose: [-0.5, 0.5, 0.0, 0, 0, 0]
+object2_reference_frame: "world"
+
+object3_name: "cylinder3"
+object3_dimensions: [0.05, 0.25] # [height, radius]
+object3_pose: [0, 0, 0.2751, 0, 0, 0]
+object3_reference_frame: "world"
+
+object4_name: "cylinder4"
+object4_dimensions: [0.25, 0.02] # [height, radius]
+object4_pose: [0.5, -0.25, 0.0, 0, 0, 0]
+object4_reference_frame: "world"
+
+# Table model
+spawn_table: true
+table_name: "table"
+table_dimensions: [0.1, 0.1, 0.25]  # [length, width, height]
+table_pose: [0, 0, 0.125, 0, 0, 0]
+table_reference_frame: "world"
+# surface_link: "{{ table_name }}"
+
+
+table2_name: "table2"
+table2_dimensions: [1.5, 1.5, 0.1]  # [length, width, height]
+table2_pose: [0, 0, -0.051, 0, 0, 0]
+table2_reference_frame: "world"
+# surface2_link: "{{ table2_name }}"
+
+# Gripper grasp frame transform [x,y,z,r,p,y]
+grasp_frame_transform: [0.00, -0.00, 0.13, 1.571, 0.785, 1.571]
+
+# Place pose
+place_pose: [0, 0, 0.3, 0, 0, 0] # for glass
+place_pose2: [0.5, 0.5, .09, 0, 0, 0] #[x,y,z,r,p,y] #simple
+# place_pose2: [0.5, 0.5, 0.5, 1.571, 1.571, 1.571] #[x,y,z,r,p,y,?] #transformation applied in z', y',  x' order??
+
+place_surface_offset: 0.0001 # place offset from table
+
+# Valid distance range when approaching an object for picking
+approach_object_min_dist: 0.01
+approach_object_max_dist: 0.2
+
+retreat_object_min_dist: 0.12
+retreat_object_max_dist: 0.25
+
+# retreat_object_min_dist: 0.01
+# retreat_object_max_dist: 0.05
+
+# Valid height range when lifting an object after pick
+lift_object_min_dist: 0.01
+lift_object_max_dist: 0.5
+
+pour_tilt_angle: 2.0
+
+# pour_offset : [0,0.03,0.01] #
+pour_duration : 4.0
+pour_waypoint_duration : 0.25
+# pouring_axis_vector : [1.0,0,0,0] #
+
+# pre_pour_pose: [0, 0, 0.2, 0, 0, 0, 1] #x,y,z, w, x',y',z' ?? #both valid
+pre_pour_pose: [0, 0, 0.2, 0, 0, 3.14] #x,y,z, x',y',z' ??      #both valid
+
+bottle_name : "bottle"
+bottle_reference_frame : "world"
+bottle_dimensions : [0.25, 0.03] #h,r
+bottle_pose_only : [-0.5,0.5,0.0, 0,0,0] #x,y,z,r,p,y
+bottle_mesh : "package://mtc_pour/meshes/small_bottle.stl" #bottle.stl"
+
+glass_name  : "glass"
+glass_reference_frame : "world"
+glass_dimensions : [0.12, 0.03] #h,r
+glass_pose_only : [0.5,0,0, 0,0,0] #x,y,z,r,p,y
+glass_mesh  : "package://mtc_pour/meshes/glass.stl" #glass_binary.stl"

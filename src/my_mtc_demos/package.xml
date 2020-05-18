@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>my_mtc_demos</name>
+  <version>0.0.0</version>
+  <description>The my_mtc_demos package</description>
+  <maintainer email="rajendra@todo.todo">rajendra</maintainer>
+  <license>TODO</license>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>moveit_task_constructor_core</build_depend>
+  <build_depend>rviz_marker_tools</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>moveit_ros_planning_interface</build_depend>
+
+  <exec_depend>moveit_task_constructor_core</exec_depend>
+  <exec_depend>rviz_marker_tools</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>moveit_ros_planning_interface</exec_depend>
+
+  <depend>moveit_core</depend>
+  <depend>rosparam_shortcuts</depend>
+  <exec_depend version_gte="0.7.4">panda_moveit_config</exec_depend>
+
+  <export>
+
+  </export>
+</package>
