@@ -417,8 +417,7 @@ This ROS melodic workspace is created on Ubuntu 18.04.  Here I have worked on se
     ```
     #!/bin/bash
     source /opt/ros/melodic/setup.bash
-    source install/local_setup.bash
-    source install/setup.bash
+    source devel/setup.bash
     clear
     ```
     > It will source the workspace after buiding workspace or after creating new pkg. Run it as `./refresh.sh`
